@@ -1,0 +1,11 @@
+{
+    "author": ["Draper"],
+    "install_msg": "Thank you for installing my repository !\n\nUse `[p]cog list draper` command to see all my cogs.",
+    "name": "Draper Cogs",
+    "short": "Various cogs.",
+    "description": "Converting some of the cogs I use on my fork to work with Base Red",
+    "tags": [
+        "utility",
+        "Funny"
+    ]
+}

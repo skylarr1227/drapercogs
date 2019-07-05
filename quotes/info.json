@@ -1,0 +1,13 @@
+{
+    "author": ["Drapersniper"],
+    "install_msg": "",
+    "name": "Random Quotes",
+    "disabled": false,
+    "short": "Sends previously typed messages as quotes",
+    "description": "Sends previously typed messages as quotes",
+    "tags": [
+        "funny"
+    ],
+    "requirements": ["regex"],
+    "hidden": false
+}
