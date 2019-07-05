@@ -1,0 +1,13 @@
+{
+    "author": ["Drapersniper"],
+    "install_msg": "",
+    "name": "Member Stats",
+    "disabled": false,
+    "short": "Show status of Members",
+    "description": "Show status of Members",
+    "tags": [
+        "Utility"
+    ],
+    "requirements": [],
+    "hidden": false
+}

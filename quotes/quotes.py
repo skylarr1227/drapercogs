@@ -10,11 +10,14 @@ from itertools import islice
 
 import discord
 from discord.ext.commands.converter import Greedy
+
 from redbot.core.utils.chat_formatting import humanize_list, bold
-
-import regex
-
 from redbot.core import Config, commands, checks
+
+try:
+    import regex
+except Exception as e:
+    raise RuntimeError(f"Can't load regex: {e}\nDo 'python -m pip install regex'.")
 
 logger = logging.getLogger("red.cogs.quotes")
 
