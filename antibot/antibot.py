@@ -415,6 +415,7 @@ class AntiBot(commands.Cog):
                     user, guild, "kick", invite=appeal, is_auto=False, reason=reason
                 )
             await guild.kick(user, reason=audit_reason)
+            # TODO: Add permission check
             log.info(f"{author.name}({author.id}) kicked {user.name}({user.id})")
         except discord.Forbidden:
             if queue_entry in self.kick_queue:
@@ -483,6 +484,7 @@ class AntiBot(commands.Cog):
                     user, guild, "ban", invite=appeal, is_auto=False, reason=reason
                 )
             await guild.ban(user, reason=audit_reason, delete_message_days=1)
+            # TODO: Add permission check
             log.info(
                 f"{author.name}({author.id}) banned {user.name}({user.id}), "
                 f"deleting {str(1)}  days worth of messages"
