@@ -1,0 +1,14 @@
+{
+    "author": ["Drapersniper"],
+    "install_msg": "",
+    "name": "Anti=Bot",
+    "disabled": false,
+    "short": "Auto Kicks users upon joining if they fail to pass some checks",
+    "description": "This requites Mod cog to be enabled, and optionally the ModLog cog  to generate the modlogs, Auto Kicks users upon joining if they fail to pass some checks",
+    "tags": [
+        "moderation",
+        "utility"
+    ],
+    "requirements": ["regex"],
+    "hidden": false
+}

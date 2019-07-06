@@ -31,7 +31,7 @@ class MemberStatus(commands.Cog):
     async def playing(self, ctx: commands.Context, *, game: str = None):
         """Shows who's playing what games"""
 
-        global _
+        global _  # MyPy was complaining this was a unresolved reference until global was called
         game_name = _("what")
         ending = _(" any games")
         game_list = []
@@ -76,7 +76,7 @@ class MemberStatus(commands.Cog):
     async def watching(self, ctx: commands.Context):
         """Shows who's watching what"""
 
-        global _
+        global _  # MyPy was complaining this was a unresolved reference until global was called
         watching_data = await self.get_players_per_activity(ctx=ctx, movie=True)
 
         if watching_data:
@@ -115,7 +115,7 @@ class MemberStatus(commands.Cog):
     async def listening(self, ctx: commands.Context):
         """Shows who's listening what"""
 
-        global _
+        global _  # MyPy was complaining this was a unresolved reference until global was called
         listening_data = await self.get_players_per_activity(ctx=ctx, music=True)
 
         if listening_data:
@@ -154,7 +154,7 @@ class MemberStatus(commands.Cog):
     @commands.bot_has_permissions(embed_links=True)
     async def streaming(self, ctx: commands.Context, *, game=None):
         """Shows who's streaming what games"""
-        global _
+        global _  # MyPy was complaining this was a unresolved reference until global was called
         game_name = _("what")
         ending = ""
         game_list = []
