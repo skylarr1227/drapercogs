@@ -15,8 +15,7 @@ from redbot.core.utils.chat_formatting import pagify
 from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
 
 
-def _(s):
-    return s
+_ = lambda s: s
 
 
 class MemberStatus(commands.Cog):
@@ -48,10 +47,13 @@ class MemberStatus(commands.Cog):
                 count += 1
                 if count % splitter == 0:
                     embed = discord.Embed(
-                        title=_("Who's playing {}?").format(game_name), colour=ctx.embed_color()
+                        title=_("Who's playing {name}?").format(name=game_name),
+                        colour=ctx.embed_color(),
                     )
 
-                title = f"{key} ({len(value)} {_('playing')})"
+                title = "{key} ({value} {status})".format(
+                    key=key, value=len(value), status=_("playing")
+                )
                 content = ""
                 for _, display_name, _ in sorted(value, key=itemgetter(2, 1)):
                     content += f"{display_name}\n"
@@ -59,7 +61,9 @@ class MemberStatus(commands.Cog):
                 outputs = pagify(content, page_length=1000, priority=True)
                 for enum_count, field in enumerate(outputs, 1):
                     if enum_count > 1:
-                        title = f"{key} ({_('Part')} {enum_count})"
+                        title = "{key} ({extra} {value})".format(
+                            key=key, value=enum_count, extra=_("Part")
+                        )
                     embed.add_field(name=f"{title}", value=field)
                 if count % splitter == 0:
                     embed_list.append(copy(embed))
@@ -90,7 +94,9 @@ class MemberStatus(commands.Cog):
                         title=_("Who's watching what?"), colour=ctx.embed_color()
                     )
 
-                title = f"{key} ({len(value)} {_('watching')})"
+                title = "{key} ({value} {status})".format(
+                    key=key, value=len(value), status=_("watching")
+                )
                 content = ""
                 for _, display_name, _ in sorted(value, key=itemgetter(2, 1)):
                     content += f"{display_name}\n"
@@ -98,7 +104,9 @@ class MemberStatus(commands.Cog):
                 outputs = pagify(content, page_length=1000, priority=True)
                 for enum_count, field in enumerate(outputs, 1):
                     if enum_count > 1:
-                        title = f"{key} ({_('Part')} {enum_count})"
+                        title = "{key} ({extra} {value})".format(
+                            key=key, value=enum_count, extra=_("Part")
+                        )
                     embed.add_field(name=f"{title}", value=field)
                 if count % splitter == 0:
                     embed_list.append(copy(embed))
@@ -129,7 +137,9 @@ class MemberStatus(commands.Cog):
                         title=_("Who's listening to what?"), colour=ctx.embed_color()
                     )
 
-                title = f"{key} ({len(value)} {_('listening')})"
+                title = "{key} ({value} {status})".format(
+                    key=key, value=len(value), status=_("listening")
+                )
                 content = ""
                 for _, display_name, _ in sorted(value, key=itemgetter(2, 1)):
                     content += f"{display_name}\n"
@@ -137,7 +147,9 @@ class MemberStatus(commands.Cog):
                 outputs = pagify(content, page_length=1000, priority=True)
                 for enum_count, field in enumerate(outputs, 1):
                     if enum_count > 1:
-                        title = f"{key} ({_('Part')} {enum_count})"
+                        title = "{key} ({extra} {value})".format(
+                            key=key, value=enum_count, extra=_("Part")
+                        )
                     embed.add_field(name=f"{title}", value=field)
                 if count % splitter == 0:
                     embed_list.append(copy(embed))
@@ -176,7 +188,9 @@ class MemberStatus(commands.Cog):
                         title=_("Who's streaming {}?").format(game_name), colour=ctx.embed_color()
                     )
 
-                title = f"{key} ({len(value)} {_('streaming')})"
+                title = "{key} ({value} {status})".format(
+                    key=key, value=len(value), status=_("streaming")
+                )
                 content = ""
                 for _, display_name, _ in sorted(value, key=itemgetter(2, 1)):
                     content += f"{display_name}\n"
@@ -184,7 +198,9 @@ class MemberStatus(commands.Cog):
                 outputs = pagify(content, page_length=1000, priority=True)
                 for enum_count, field in enumerate(outputs, 1):
                     if enum_count > 1:
-                        title = f"{key} ({_('Part')} {enum_count})"
+                        title = "{key} ({extra} {value})".format(
+                            key=key, value=enum_count, extra=_("Part")
+                        )
                     embed.add_field(name=f"{title}", value=field)
                 if count % splitter == 0:
                     embed_list.append(copy(embed))

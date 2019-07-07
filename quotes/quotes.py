@@ -68,7 +68,9 @@ class Quotes(commands.Cog):
         if enabled is None:
             enabled = not await self.config.guild(guild).enabled()
         await self.config.guild(guild).enabled.set(enabled)
-        message = _("Quotes has been {}").format(_("enabled") if enabled else _("disabled"))
+        message = _("Quotes has been {status}").format(
+            status=_("enabled") if enabled else _("disabled")
+        )
         await ctx.maybe_send_embed(message)
 
     @checks.admin_or_permissions(manage_guild=True)
@@ -95,11 +97,13 @@ class Quotes(commands.Cog):
         channels_to_remove = [c.mention for c in channels_to_remove]
         if channels_to_add:
             channels_to_add = humanize_list(channels_to_add)
-            message1 = _("I will now monitor the following channels:\n{}").format(channels_to_add)
+            message1 = _("I will now monitor the following channels:\n{channels}").format(
+                channels=channels_to_add
+            )
         if channels_to_remove:
             channels_to_remove = humanize_list(channels_to_remove)
-            message2 = _("I will stop monitoring the following channels:\n{}").format(
-                channels_to_remove
+            message2 = _("I will stop monitoring the following channels:\n{channels}").format(
+                channels=channels_to_remove
             )
         for m in [message1, message2]:
             if m:
@@ -113,7 +117,7 @@ class Quotes(commands.Cog):
         """
         guild = ctx.message.guild
         await self.config.guild(guild).quotesToKeep.set(limit)
-        message = _("Quote limit set to {}").format(limit)
+        message = _("Quote limit set to {limit}").format(limit=limit)
         await ctx.maybe_send_embed(message)
 
     @checks.admin_or_permissions(manage_guild=True)
@@ -124,8 +128,8 @@ class Quotes(commands.Cog):
         if enabled is None:
             enabled = not await self.config.guild(guild).crossChannel()
         await self.config.guild(guild).crossChannel.set(enabled)
-        message = _("Sticky Quotes will show {}").format(
-            _("in all rooms") if enabled else _("only in the same room as original message")
+        message = _("Sticky Quotes will show {status}").format(
+            status=_("in all rooms") if enabled else _("only in the same room as original message")
         )
         await ctx.maybe_send_embed(message)
 
@@ -137,8 +141,8 @@ class Quotes(commands.Cog):
         guild = ctx.message.guild
         await self.config.guild(guild).botPrefixes.set(to_ignore)
         to_ignore = humanize_list(to_ignore)
-        message = _("All messages starting with the following will be ignored :\n{}").format(
-            to_ignore
+        message = _("All messages starting with the following will be ignored :\n{items}").format(
+            items=to_ignore
         )
         await ctx.maybe_send_embed(message)
 
@@ -183,9 +187,7 @@ class Quotes(commands.Cog):
             content = permaquote.clean_content
             if regex.search(urlmatcher_re, content, concurrent=True):
                 return await ctx.maybe_send_embed(
-                    _("Messages with URL are not allowed to be quoted").format(
-                        channel=channel, message=message_id
-                    )
+                    _("Messages with URL are not allowed to be quoted")
                 )
             else:
                 data = dict()
@@ -249,14 +251,19 @@ class Quotes(commands.Cog):
                 embed.set_thumbnail(url=avatar)
                 embed.timestamp = datetime.fromtimestamp(quote["time_sent"])
                 embed.add_field(
-                    name="\u200b", value=f"[{_('Original Message')}]({quote['jump_url']})"
+                    name="\u200b",
+                    value="[{original}]({url})".format(
+                        original=_("Original Message"), url=quote["jump_url"]
+                    ),
                 )
                 embed.colour = ctx.author.colour
                 return await ctx.send(embed=embed)
             else:
-                msg = f"{bold(_('Author'))}: {author}\n\n"
+                msg = "{title}: {author}\n\n".format(title=bold(_("Author")), author=author)
                 msg += f"{quote['message'][:1800]}\n\n"
-                msg += f"[{_('Original Message')}]({quote['jump_url']})"
+                msg += "[{original}]({url})".format(
+                    original=_("Original Message"), url=quote["jump_url"]
+                )
                 return await ctx.maybe_send_embed(msg)
         else:
             return await ctx.maybe_send_embed(

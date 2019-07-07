@@ -38,6 +38,7 @@ _default_guild = {
 
 extendedmodlog = None
 modlog = None
+_ = lambda s: s
 
 
 class AntiBot(commands.Cog):
@@ -73,7 +74,9 @@ class AntiBot(commands.Cog):
         if enabled is None:
             enabled = not await self.config.guild(ctx.guild).automod()
         await self.config.guild(ctx.guild).automod.set(enabled)
-        await ctx.maybe_send_embed(f"Auto mod is: {'enabled' if enabled else'disabled'}")
+        await ctx.maybe_send_embed(
+            _("Auto mod is: {status}").format(status=_("enabled") if enabled else _("disabled"))
+        )
 
     @checks.admin()
     @_automod.command()
@@ -84,7 +87,9 @@ class AntiBot(commands.Cog):
         if days < 1:
             days = 0
         await self.config.guild(ctx.guild).daythreshold.set(days)
-        await ctx.maybe_send_embed(f"Accounts older than {days} will bypass auto moderation")
+        await ctx.maybe_send_embed(
+            _("Accounts older than {days} will bypass auto moderation").format(days=days)
+        )
 
     @checks.admin()
     @_automod.command()
@@ -95,10 +100,12 @@ class AntiBot(commands.Cog):
         await self.config.guild(ctx.guild).appealinvite.set(invite)
         if invite:
             await ctx.maybe_send_embed(
-                f"On auto moderation I will now send users `{invite}` so they can appeal"
+                _("On auto moderation I will now send users `{invite}` so they can appeal").format(
+                    invite=invite
+                )
             )
         else:
-            await ctx.maybe_send_embed("I'll silently auto moderate with no option to appeal")
+            await ctx.maybe_send_embed(_("I'll silently auto moderate with no option to appeal"))
 
     @_automod.command()
     async def whitelist(
@@ -114,11 +121,15 @@ class AntiBot(commands.Cog):
         async with self.config.guild(guild).whitelist() as data:
             if user.id not in data:
                 data.append(user.id)
-                await ctx.maybe_send_embed(f"{user} ({user.id}) will bypass the automation check")
+                await ctx.maybe_send_embed(
+                    _("{user} ({user.id}) will bypass the automation check").format(user=user)
+                )
             else:
                 data.remove(user.id)
                 await ctx.maybe_send_embed(
-                    f"{user} ({user.id}) will be checked on new joins by the automated " f"system"
+                    _(
+                        "{user} ({user.id}) will be checked on new joins by the automated system"
+                    ).format(user=user)
                 )
 
     @_automod.command()
@@ -135,11 +146,15 @@ class AntiBot(commands.Cog):
         async with self.config.guild(guild).blacklist() as data:
             if user.id not in data:
                 data.append(user.id)
-                await ctx.maybe_send_embed(f"{user} ({user.id}) will always be kicked on rejoin")
+                await ctx.maybe_send_embed(
+                    _("{user} ({user.id}) will always be kicked on rejoin").format(user=user)
+                )
             else:
                 data.remove(user.id)
                 await ctx.maybe_send_embed(
-                    f"{user} ({user.id}) will be checked on new joins by the automated system"
+                    _(
+                        "{user} ({user.id}) will be checked on new joins by the automated system"
+                    ).format(user=user)
                 )
 
     @checks.admin()
@@ -165,7 +180,9 @@ class AntiBot(commands.Cog):
         """
         extendedmodlog = self.bot.get_cog("ExtendedModLog")
         if extendedmodlog is None:
-            return await ctx.maybe_send_embed(f"You need the `ExtendedModLog` for this to work")
+            return await ctx.maybe_send_embed(
+                _("You need the `{dep}` for this to work").format(dep="ExtendedModLog")
+            )
         added = []
         removed = []
         async with self.config.guild(ctx.guild).spammy_invite_links() as spammy_invites:
@@ -178,11 +195,15 @@ class AntiBot(commands.Cog):
                     removed.append(i)
         if added:
             added = "\n".join(added)
-            await ctx.maybe_send_embed(f"I've marked the following invites as spammy:\n\n{added}")
+            await ctx.maybe_send_embed(
+                _("I've marked the following invites as spammy:\n\n{invs}").format(invs=added)
+            )
         if added:
             removed = "\n".join(removed)
             await ctx.maybe_send_embed(
-                f"I've marked the following invites as not spammy:\n\n{removed}"
+                _("I've marked the following invites as not spammy:\n\n{invs}").format(
+                    invs=removed
+                )
             )
 
     @checks.admin()
@@ -193,7 +214,9 @@ class AntiBot(commands.Cog):
         """
         extendedmodlog = self.bot.get_cog("ExtendedModLog")
         if extendedmodlog is None:
-            return await ctx.maybe_send_embed(f"You need the `ExtendedModLog` for this to work")
+            return await ctx.maybe_send_embed(
+                _("You need the `{dep}` for this to work").format(dep="ExtendedModLog")
+            )
         added = []
         removed = []
         async with self.config.guild(ctx.guild).bypass_invite_links() as spammy_invites:
@@ -207,12 +230,16 @@ class AntiBot(commands.Cog):
         if added:
             added = "\n".join(added)
             await ctx.maybe_send_embed(
-                f"The following links will bypass auto moderation:\n\n{added}"
+                _("The following links will bypass auto moderation:\n\n{invs}").format(
+                    invs=removed
+                )
             )
         if added:
             removed = "\n".join(removed)
             await ctx.maybe_send_embed(
-                f"The following links will no longer bypass auto moderation:\n\n{removed}"
+                _("The following links will no longer bypass auto moderation:\n\n{invs}").format(
+                    invs=removed
+                )
             )
 
     @commands.Cog.listener()
@@ -354,7 +381,7 @@ class AntiBot(commands.Cog):
             # We don't want blocked DMs preventing us from banning/kicking
             if is_auto:
                 await user.send(
-                    (
+                    _(
                         "You have been kicked from {guild.name} "
                         "by our automation under suspicion of being a bot\n"
                         "If you are reading this you are not one"
@@ -364,15 +391,21 @@ class AntiBot(commands.Cog):
                 )
             else:
                 if action == "ban":
-                    action = "banned"
+                    action = _("banned")
                 elif action == "kick":
-                    action = "kicked"
+                    action = _("kicked")
                 if reason is None:
                     reason = ""
                 else:
-                    reason = f"Reason: {reason}"
-                await user.send(f"You have been {action} from {guild.name}. {reason}")
-            await user.send(f"Here is an invite to the appeal server: {invite}")
+                    reason = _("Reason: {reason}").format(reason=reason)
+                await user.send(
+                    _("You have been {action} from {guild.name}. {reason}").format(
+                        reason=reason, action=action, guild=guild
+                    )
+                )
+            await user.send(
+                _("Here is an invite to the appeal server: {invite}").format(invite=invite)
+            )
 
     async def kick_user(
         self,
