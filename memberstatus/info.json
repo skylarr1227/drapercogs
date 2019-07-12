@@ -1,6 +1,6 @@
 {
     "author": ["Drapersniper"],
-    "install_msg": "",
+    "install_msg": "This cog will allow you to stalk your members",
     "name": "Member Stats",
     "disabled": false,
     "short": "Show status of Members",

@@ -1,6 +1,6 @@
 {
     "author": ["Drapersniper"],
-    "install_msg": "",
+    "install_msg": "This cog will allow you to get random quotes from member",
     "name": "Random Quotes",
     "disabled": false,
     "short": "Sends previously typed messages as quotes",
