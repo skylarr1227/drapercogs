@@ -1,0 +1,7 @@
+bandit
+black
+isort
+pre-commit
+pylint
+towncrier
+tox

@@ -1,42 +1,40 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mar 26, 2019
-
-@author: Guy Reis
-"""
+# Standard Library
 from copy import copy
-from operator import itemgetter, attrgetter
+from operator import attrgetter, itemgetter
 from typing import List
 
+# Cog Dependencies
 import discord
 
 from redbot.core import Config, commands
 from redbot.core.utils.chat_formatting import pagify
 from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
 
-
 _ = lambda s: s
+_config_identifier = 3584065639
 
 
 class MemberStatus(commands.Cog):
     def __init__(self, bot, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.bot = bot
-        self.config = Config.get_conf(self, identifier=3584065639, force_registration=True)
+        self.config = Config.get_conf(self, identifier=_config_identifier, force_registration=True)
 
     @commands.command()
     @commands.guild_only()
     @commands.bot_has_permissions(embed_links=True)
     async def playing(self, ctx: commands.Context, *, game: str = None):
-        """Shows who's playing what games"""
+        """Shows who's playing what games."""
 
         global _  # MyPy was complaining this was a unresolved reference until global was called
         game_name = _("what")
-        ending = _(" any games")
+        ending = _(" any games.")
         game_list = []
         if game:
             game_name = game
             game_list = [game]
+            ending = f" {game}."
         playing_data = await self.get_players_per_activity(ctx=ctx, game_name=game_list)
 
         if playing_data:
@@ -78,7 +76,7 @@ class MemberStatus(commands.Cog):
     @commands.guild_only()
     @commands.bot_has_permissions(embed_links=True)
     async def watching(self, ctx: commands.Context):
-        """Shows who's watching what"""
+        """Shows who's watching what."""
 
         global _  # MyPy was complaining this was a unresolved reference until global was called
         watching_data = await self.get_players_per_activity(ctx=ctx, movie=True)
@@ -115,13 +113,13 @@ class MemberStatus(commands.Cog):
                 ctx, pages=embed_list, controls=DEFAULT_CONTROLS, message=None, page=0, timeout=60
             )
         else:
-            await ctx.maybe_send_embed(_("No one is Watching anything"))
+            await ctx.maybe_send_embed(_("No one is Watching anything."))
 
     @commands.command()
     @commands.guild_only()
     @commands.bot_has_permissions(embed_links=True)
     async def listening(self, ctx: commands.Context):
-        """Shows who's listening what"""
+        """Shows who's listening what."""
 
         global _  # MyPy was complaining this was a unresolved reference until global was called
         listening_data = await self.get_players_per_activity(ctx=ctx, music=True)
@@ -159,21 +157,21 @@ class MemberStatus(commands.Cog):
             )
 
         else:
-            await ctx.maybe_send_embed(_("No one is listening to anything"))
+            await ctx.maybe_send_embed(_("No one is listening to anything."))
 
     @commands.command()
     @commands.guild_only()
     @commands.bot_has_permissions(embed_links=True)
     async def streaming(self, ctx: commands.Context, *, game=None):
-        """Shows who's streaming what games"""
+        """Shows who's streaming what games."""
         global _  # MyPy was complaining this was a unresolved reference until global was called
         game_name = _("what")
-        ending = ""
+        ending = "."
         game_list = []
         if game:
             game_name = game
             game_list = [game]
-            ending = game
+            ending = f" {game}."
         streaming_data = await self.get_players_per_activity(
             ctx=ctx, stream=True, game_name=game_list
         )

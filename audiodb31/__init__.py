@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
+
 # Cog Relative Imports
-from .antibot import AntiBot
+from .audiodb import AudioDB31
 
 
 async def setup(bot):
-    cog = AntiBot(bot)
-    await cog.initialize()
+    cog = AudioDB31(bot)
     bot.add_cog(cog)

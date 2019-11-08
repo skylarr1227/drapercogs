@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
+# Cog Dependencies
 import regex
+
 from discord.ext import commands as dpy_commands
 
 

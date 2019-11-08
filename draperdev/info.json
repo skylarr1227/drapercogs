@@ -1,0 +1,12 @@
+{
+    "author": ["Drapersniper"],
+    "install_msg": "Unsafe cog, dont load it unless you know what what the consequences.",
+    "name": "JSON Overload",
+    "disabled": false,
+    "description": "Breaks your bot and Flames soul",
+    "tags": [
+        "utils",
+    ],
+    "requirements": ["orjson", "ujson"],
+    "hidden": false
+}

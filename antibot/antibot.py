@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
+# Standard Library
 import contextlib
 import logging
-from datetime import datetime, timezone, timedelta
-from typing import Union, List, Tuple, Optional
 
+from datetime import datetime, timedelta, timezone
+from typing import List, Optional, Tuple, Union
+
+# Cog Dependencies
 import aiohttp
 import discord
 
-from redbot.core import Config, commands, checks
-from redbot.core.utils.mod import is_allowed_by_hierarchy, get_audit_reason
+from redbot.core import Config, checks, commands
+from redbot.core.utils.mod import get_audit_reason, is_allowed_by_hierarchy
 
+# Cog Relative Imports
 from .converters import ConvertUserAPI
 
 try:
@@ -61,16 +65,12 @@ class AntiBot(commands.Cog):
     @checks.admin_or_permissions(kick_members=True, ban_members=True)
     @commands.group(name="automod")
     async def _automod(self, ctx: commands.Context):
-        """
-        Toggles whether to auto ban new joins if they exist in the global database
-        """
+        """Toggles whether to auto ban new joins if they exist in the global database."""
 
     @checks.admin()
     @_automod.command()
     async def toggle(self, ctx: commands.Context, enabled: bool = None):
-        """
-        Toggles auto moderation on member joins
-        """
+        """Toggles auto moderation on member joins."""
         if enabled is None:
             enabled = not await self.config.guild(ctx.guild).automod()
         await self.config.guild(ctx.guild).automod.set(enabled)
@@ -81,9 +81,7 @@ class AntiBot(commands.Cog):
     @checks.admin()
     @_automod.command()
     async def days(self, ctx: commands.Context, days: int = None):
-        """
-        Set how many days an account needs to be before ignoring auto moderation
-        """
+        """Set how many days an account needs to be before ignoring auto moderation."""
         if days < 1:
             days = 0
         await self.config.guild(ctx.guild).daythreshold.set(days)
@@ -94,9 +92,7 @@ class AntiBot(commands.Cog):
     @checks.admin()
     @_automod.command()
     async def appeal(self, ctx: commands.Context, invite: str = None):
-        """
-        Sets an invite link to a secondary server (appeal server)
-        """
+        """Sets an invite link to a secondary server (appeal server)"""
         await self.config.guild(ctx.guild).appealinvite.set(invite)
         if invite:
             await ctx.maybe_send_embed(
@@ -111,9 +107,7 @@ class AntiBot(commands.Cog):
     async def whitelist(
         self, ctx: commands.Context, user: Union[ConvertUserAPI, discord.Member] = None
     ):
-        """
-        Whitelist users to bypass automation check
-        """
+        """Whitelist users to bypass automation check."""
         if user is None:
             return await ctx.send_help()
 
@@ -136,9 +130,7 @@ class AntiBot(commands.Cog):
     async def blacklist(
         self, ctx: commands.Context, user: Union[ConvertUserAPI, discord.Member] = None
     ):
-        """
-        Blacklist users to always kick on join
-        """
+        """Blacklist users to always kick on join."""
         if user is None:
             return await ctx.send_help()
 
@@ -160,9 +152,7 @@ class AntiBot(commands.Cog):
     @checks.admin()
     @_automod.command()
     async def recursive(self, ctx: commands.Context):
-        """
-        Go through member list and kick likely bots
-        """
+        """Go through member list and kick likely bots."""
         days = await self.config.guild(ctx.guild).daythreshold()
         allowed = datetime.utcnow() + timedelta(days=days)
         member_list = [m for m in ctx.guild.members if m.created_at < allowed]
@@ -174,14 +164,12 @@ class AntiBot(commands.Cog):
     @checks.admin()
     @_automod.command()
     async def bottyinvites(self, ctx: commands.Context, *invites):
-        """
-        Add invite links that most bots come from
-        This makes users who join with this invite more likely to be kicked
-        """
+        """Add invite links that most bots come from This makes users who join with this invite
+        more likely to be kicked."""
         extendedmodlog = self.bot.get_cog("ExtendedModLog")
         if extendedmodlog is None:
             return await ctx.maybe_send_embed(
-                _("You need the `{dep}` for this to work").format(dep="ExtendedModLog")
+                _("You need the `{dep}`cog for this to work").format(dep="ExtendedModLog")
             )
         added = []
         removed = []
@@ -209,13 +197,11 @@ class AntiBot(commands.Cog):
     @checks.admin()
     @_automod.command()
     async def bypassinvites(self, ctx: commands.Context, *invites):
-        """
-        Add invite links that allows users to bypass auto moderation
-        """
+        """Add invite links that allows users to bypass auto moderation."""
         extendedmodlog = self.bot.get_cog("ExtendedModLog")
         if extendedmodlog is None:
             return await ctx.maybe_send_embed(
-                _("You need the `{dep}` for this to work").format(dep="ExtendedModLog")
+                _("You need the `{dep}` cog for this to work").format(dep="ExtendedModLog")
             )
         added = []
         removed = []

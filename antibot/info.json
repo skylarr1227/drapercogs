@@ -1,6 +1,6 @@
 {
     "author": ["Drapersniper"],
-    "install_msg": "This bot will save your server from impending doom",
+    "install_msg": "This bot will save your server from impending doom; To use this to the fullest ModLog and ExtendedModLog cogs should be enabled.",
     "name": "Anti-Bot",
     "disabled": false,
     "short": "Auto Kicks users upon joining if they fail to pass some checks",

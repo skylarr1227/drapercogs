@@ -1,0 +1,14 @@
+{
+    "author": ["Draper"],
+    "install_msg": "This cog can only be used by the bot owner.",
+    "name": "Setting Reporter",
+    "disabled": false,
+    "short": "Use this to report server settings.",
+    "description":"Use this to report server settings.",
+    "tags": [
+        "dev",
+        "owner"
+    ],
+    "requirements": [],
+    "hidden": false
+}

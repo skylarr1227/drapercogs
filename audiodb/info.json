@@ -1,0 +1,13 @@
+{
+    "author": ["Drapersniper"],
+    "install_msg": "This cog is READ-ONLY, if you wish to contribute to the DB contract Draper.",
+    "name": "Audio Lavalink DB",
+    "disabled": false,
+    "description": "Overrides default Audio cog methods so that the global audio DB is used.",
+    "tags": [
+        "db",
+        "audio"
+    ],
+    "requirements": ["orjson", "ujson", "requests"],
+    "hidden": false
+}
