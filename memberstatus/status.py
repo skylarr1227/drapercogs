@@ -46,7 +46,7 @@ class MemberStatus(commands.Cog):
                 if count % splitter == 0:
                     embed = discord.Embed(
                         title=_("Who's playing {name}?").format(name=game_name),
-                        colour=ctx.embed_color(),
+                        colour=await ctx.embed_color(),
                     )
 
                 title = "{key} ({value} {status})".format(
@@ -89,7 +89,7 @@ class MemberStatus(commands.Cog):
                 count += 1
                 if count % splitter == 0:
                     embed = discord.Embed(
-                        title=_("Who's watching what?"), colour=ctx.embed_color()
+                        title=_("Who's watching what?"), colour=await ctx.embed_color()
                     )
 
                 title = "{key} ({value} {status})".format(
@@ -132,7 +132,7 @@ class MemberStatus(commands.Cog):
                 count += 1
                 if count % splitter == 0:
                     embed = discord.Embed(
-                        title=_("Who's listening to what?"), colour=ctx.embed_color()
+                        title=_("Who's listening to what?"), colour=await ctx.embed_color()
                     )
 
                 title = "{key} ({value} {status})".format(
@@ -183,7 +183,8 @@ class MemberStatus(commands.Cog):
                 count += 1
                 if count % splitter == 0:
                     embed = discord.Embed(
-                        title=_("Who's streaming {}?").format(game_name), colour=ctx.embed_color()
+                        title=_("Who's streaming {}?").format(game_name),
+                        colour=await ctx.embed_color(),
                     )
 
                 title = "{key} ({value} {status})".format(
