@@ -3,7 +3,7 @@
 import contextlib
 import importlib
 
-MODULES = ("orjson", "ujson")
+MODULES = ("orjson", "ujson", "json")
 
 mainjson = None
 
