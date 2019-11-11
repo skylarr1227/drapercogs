@@ -45,7 +45,8 @@ class MemberStatus(commands.Cog):
                 count += 1
                 if count % splitter == 0:
                     embed = discord.Embed(
-                        title=_("Who's playing {name}?").format(name=game_name), colour=embed_colour,
+                        title=_("Who's playing {name}?").format(name=game_name),
+                        colour=embed_colour,
                     )
 
                 title = "{key} ({value} {status})".format(
@@ -87,9 +88,7 @@ class MemberStatus(commands.Cog):
             for key, value in sorted(watching_data.items()):
                 count += 1
                 if count % splitter == 0:
-                    embed = discord.Embed(
-                        title=_("Who's watching what?"), colour=embed_colour,
-                    )
+                    embed = discord.Embed(title=_("Who's watching what?"), colour=embed_colour)
 
                 title = "{key} ({value} {status})".format(
                     key=key, value=len(value), status=_("watching")
@@ -130,15 +129,13 @@ class MemberStatus(commands.Cog):
             for key, value in sorted(listening_data.items()):
                 count += 1
                 if count % splitter == 0:
-                    embed = discord.Embed(
-                        title=_("Who's listening to what?"), colour=embed_colour
-                    )
+                    embed = discord.Embed(title=_("Who's listening to what?"), colour=embed_colour)
 
                 title = "{key} ({value} {status})".format(
                     key=key, value=len(value), status=_("listening")
                 )
                 content = ""
-                for mention, display_name,black_hole in sorted(value, key=itemgetter(2, 1)):
+                for mention, display_name, black_hole in sorted(value, key=itemgetter(2, 1)):
                     content += f"{display_name}\n"
 
                 outputs = pagify(content, page_length=1000, priority=True)
@@ -251,11 +248,7 @@ class MemberStatus(commands.Cog):
                         )
                         role_value = top_role.position * -1
                         if game in member_data_new:
-                            member_data_new[game].append(
-                                (member.mention, str(member), role_value)
-                            )
+                            member_data_new[game].append((member.mention, str(member), role_value))
                         else:
-                            member_data_new[game] = [
-                                (member.mention,str(member), role_value)
-                            ]
+                            member_data_new[game] = [(member.mention, str(member), role_value)]
         return member_data_new

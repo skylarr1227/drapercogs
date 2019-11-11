@@ -18,7 +18,7 @@ class PetMaker:
         self.name = f"{self.modifier} {self.name}"
 
     def to_json(self) -> dict:
-        output = {self.name: {"name": self.name, "bonus": self.bonus, "cha": self.cha,}}
+        output = {self.name: {"name": self.name, "bonus": self.bonus, "cha": self.cha}}
 
         return output
 

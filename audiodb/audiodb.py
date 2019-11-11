@@ -27,6 +27,7 @@ _config_identifier: int = 208903205982044161
 
 class AudioDB(commands.Cog):
     """Drapers AudioDB commands."""
+
     def __init__(self, bot: Red) -> None:
         self.bot = bot
         self.config = Config.get_conf(self, _config_identifier, force_registration=True)
@@ -35,7 +36,7 @@ class AudioDB(commands.Cog):
     async def initialize(self, audio: Audio, enabled=True) -> None:
         _pass_config_to_api(self.config)
         global old_audio_cache
-        if old_audio_cache is None:
+        if old_audio_cache is None and enabled is True:
             old_audio_cache = audio.music_cache
 
         if enabled is True:

@@ -16,7 +16,7 @@ import lavalink
 from aiohttp import ClientTimeout
 from lavalink.enums import LoadType
 from lavalink.rest_api import LoadResult
-from redbot.cogs.audio import dataclasses
+from redbot.cogs.audio import audio_dataclasses
 from redbot.cogs.audio.apis import HAS_SQL, MusicCache, SQLError
 from redbot.cogs.audio.utils import CacheLevel, Notifier, is_allowed, queue_duration, track_limit
 from redbot.core import Config, commands
@@ -55,9 +55,9 @@ class AudioDBAPI:
         _WRITE_GLOBAL_API_ACCESS = self.api_key is not None
         return self.api_key
 
-    async def get_call(self, query: Optional[dataclasses.Query] = None) -> Optional[dict]:
+    async def get_call(self, query: Optional[audio_dataclasses.Query] = None) -> Optional[dict]:
         with contextlib.suppress(Exception):
-            query = dataclasses.Query.process_input(query)
+            query = audio_dataclasses.Query.process_input(query)
             if any([not query or not query.valid or query.is_spotify or query.is_local]):
                 return {}
             await self._get_api_key()
@@ -104,9 +104,11 @@ class AudioDBAPI:
             return search_response
         return {}
 
-    async def post_call(self, llresponse: LoadResult, query: Optional[dataclasses.Query]) -> None:
+    async def post_call(
+        self, llresponse: LoadResult, query: Optional[audio_dataclasses.Query]
+    ) -> None:
         with contextlib.suppress(Exception):
-            query = dataclasses.Query.process_input(query)
+            query = audio_dataclasses.Query.process_input(query)
             if llresponse.has_error or llresponse.load_type.value in ["NO_MATCHES", "LOAD_FAILED"]:
                 return
 
@@ -149,7 +151,7 @@ class MusicCache(MusicCache):
         return await self.database.fetch_all(query=_QUERY_LAVALINK_TABLE)
 
     async def update_global(
-        self, llresponse: LoadResult, query: Optional[dataclasses.Query] = None
+        self, llresponse: LoadResult, query: Optional[audio_dataclasses.Query] = None
     ):
         await self.audio_api.post_call(llresponse=llresponse, query=query)
 
@@ -157,7 +159,7 @@ class MusicCache(MusicCache):
         self,
         ctx: commands.Context,
         player: lavalink.Player,
-        query: dataclasses.Query,
+        query: audio_dataclasses.Query,
         forced: bool = False,
         lazy: bool = False,
         should_query_global: bool = True,
@@ -171,7 +173,7 @@ class MusicCache(MusicCache):
             The context this method is being called under.
         player : lavalink.Player
             The player who's requesting the query.
-        query: dataclasses.Query
+        query: audio_dataclasses.Query
             The Query object for the query in question.
         forced:bool
             Whether or not to skip cache and call API first..
@@ -188,7 +190,7 @@ class MusicCache(MusicCache):
         )
         cache_enabled = CacheLevel.set_lavalink().is_subset(current_cache_level)
         val = None
-        _raw_query = dataclasses.Query.process_input(query)
+        _raw_query = audio_dataclasses.Query.process_input(query)
         query = str(_raw_query)
         valid_global_entry = True
         results = None
@@ -449,7 +451,7 @@ class MusicCache(MusicCache):
                         result, called_api = await self.lavalink_query(
                             ctx,
                             player,
-                            dataclasses.Query.process_input(val),
+                            audio_dataclasses.Query.process_input(val),
                             should_query_global=not should_query_global,
                         )
                     except (RuntimeError, aiohttp.ServerDisconnectedError):
@@ -499,7 +501,7 @@ class MusicCache(MusicCache):
                     ctx.guild,
                     (
                         f"{single_track.title} {single_track.author} {single_track.uri} "
-                        f"{str(dataclasses.Query.process_input(single_track))}"
+                        f"{str(audio_dataclasses.Query.process_input(single_track))}"
                     ),
                 ):
                     has_not_allowed = True
@@ -583,7 +585,7 @@ class MusicCache(MusicCache):
         for i, entry in enumerate(db_entries, start=1):
             query = entry.query
             data = entry.data
-            _raw_query = dataclasses.Query.process_input(query)
+            _raw_query = audio_dataclasses.Query.process_input(query)
             results = LoadResult(json.loads(data))
             with contextlib.suppress(Exception):
                 if not _raw_query.is_local and not results.has_error and len(results.tracks) >= 1:
