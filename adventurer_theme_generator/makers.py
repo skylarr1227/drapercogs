@@ -1,5 +1,6 @@
-from decimal import Decimal
-from random import randint, choice, sample, shuffle, getrandbits, uniform
+# -*- coding: utf-8 -*-
+# Standard Library
+from random import choice, getrandbits, randint, sample, shuffle, uniform
 
 
 class PetMaker:

@@ -1,11 +1,13 @@
+# -*- coding: utf-8 -*-
+# Standard Library
 import contextlib
 import inspect
-import os
 import tarfile
-import zipfile
+
 from pathlib import Path
 from typing import Optional
 
+# Cog Dependencies
 import discord
 
 from redbot.core import checks, commands
@@ -97,8 +99,7 @@ class Zipper(commands.Cog):
     @commands.command()
     @checks.is_owner()
     async def postsettings(self, ctx, cog_name: str, file_name: Optional[str] = None):
-        """Send the specified file or setting from the Cog data path to the current channel.
-        """
+        """Send the specified file or setting from the Cog data path to the current channel."""
         cog_obj = ctx.bot.get_cog(cog_name)
         if cog_obj is None:
             return await ctx.send(_("Unable to find a cog called: {cog}").format(cog=cog_name))

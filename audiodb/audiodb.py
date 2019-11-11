@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Standard Library
 import contextlib
+
 from typing import Union
 
 # Cog Dependencies

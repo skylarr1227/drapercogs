@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+# Cog Relative Imports
 from .zipper import Zipper
 
 

@@ -1,5 +1,5 @@
-# ----------------------------------------- Need manual input ----------------------------------------------------------
-#  -------------- Theme Name ----------
+# -*- coding: utf-8 -*-
+# Standard Library
 from typing import List, Mapping, Tuple
 
 __all__ = [
@@ -21,6 +21,8 @@ __all__ = [
     "reasons",
 ]
 
+# ----------------------------------------- Need manual input ----------------------------------------------------------
+#  -------------- Theme Name ----------
 theme_name: str = "Template"  # Name of the Theme
 
 #  -------------- Pets values ----------

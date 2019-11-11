@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
+# Standard Library
 import json
-from pathlib import Path
-from typing import List, Tuple, Mapping
 
-import appdirs
-from makers import PetMaker, ItemMaker, MonsterMaker
+from pathlib import Path
+
+# Cog Dependencies
 from edit_me import *
+from makers import ItemMaker, MonsterMaker, PetMaker
 
 # ----------------------------------------- Logic and Code -------------------------------------------------------------
 # Don't Edit any of this .... The logic can be found in `makers.py`
