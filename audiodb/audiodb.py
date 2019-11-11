@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Standard Library
+import contextlib
 from typing import Union
 
 # Cog Dependencies
@@ -26,7 +27,6 @@ _config_identifier: int = 208903205982044161
 
 class AudioDB(commands.Cog):
     """Drapers AudioDB commands."""
-
     def __init__(self, bot: Red) -> None:
         self.bot = bot
         self.config = Config.get_conf(self, _config_identifier, force_registration=True)
@@ -50,6 +50,16 @@ class AudioDB(commands.Cog):
         audio = self.bot.get_cog("Audio")
         if audio is not None and old_audio_cache is not None:
             audio.music_cache = old_audio_cache
+
+    @commands.Cog.listener()
+    async def on_red_audio_initialized(self, audio: Audio):
+        state = await self.config.enabled()
+        await self.initialize(audio, enabled=state)
+
+    @commands.Cog.listener()
+    async def on_red_audio_unload(self, audio: Audio):
+        with contextlib.suppress(Exception):
+            await self.initialize(audio, enabled=False)
 
     @checks.is_owner()
     @commands.group(name="audiodb")
