@@ -6,8 +6,8 @@ from redbot.core.bot import Red
 _config_identifier: int = 208903205982044161
 
 
-class AudioDB(commands.Cog):
-    """Drapers AudioDB commands."""
+class DraperDevJson(commands.Cog):
+    """Drapers JSON overload commands."""
 
     def __init__(self, bot: Red) -> None:
         self.bot = bot
