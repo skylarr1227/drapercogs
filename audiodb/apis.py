@@ -86,6 +86,7 @@ class AudioDBAPI:
             search_response = "error"
             api_url = f"https://redaudio-db.appspot.com/api/v1/queries/spotify"
             params = {"title": requote_uri(title), "author": requote_uri(author)}
+            await self._get_api_key()
             with contextlib.suppress(aiohttp.ContentTypeError, asyncio.TimeoutError):
                 async with self.session.request(
                     "GET",
@@ -588,7 +589,7 @@ class MusicCache(MusicCache):
                 if not _raw_query.is_local and not results.has_error and len(results.tracks) >= 1:
                     global_task = dict(llresponse=results, query=_raw_query)
                     tasks.append(global_task)
-                if i % 100 == 0:
+                if i % 200 == 0:
                     log.debug("Running pending writes to database")
                     await asyncio.gather(
                         *[asyncio.ensure_future(self.update_global(**a)) for a in tasks],
@@ -597,7 +598,7 @@ class MusicCache(MusicCache):
                     )
                     tasks = []
                     log.debug("Pending writes to database have finished")
-            if i % 100 == 0:
-                await asyncio.sleep(6)
+            if i % 200 == 0:
+                await asyncio.sleep(10)
 
         await ctx.send(f"Local Audio cache sent upstream, thanks for contributing")
