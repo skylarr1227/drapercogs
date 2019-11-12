@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # Standard Library
+import inspect
+
 from collections import Counter
 from copy import deepcopy
 
@@ -25,24 +27,13 @@ class Reporter(commands.Cog):
     @staticmethod
     def maybe_get_config(cog: commands.Cog):
         cog_name = cog.qualified_name if hasattr(cog, "qualified_name") else cog.__class__.__name__
+        config_attribute = inspect.getmembers(cog, lambda a: not a[0].startswith('__') and isinstance(a[1], Config))
         if cog_name == "Bank":
             return bank._conf
         elif cog_name == "ModLog":
             return modlog._conf
-        elif hasattr(cog, "config") and isinstance(cog.config, Config):
-            return cog.config
-        elif hasattr(cog, "db") and isinstance(cog.db, Config):
-            return cog.db
-        elif hasattr(cog, "conf") and isinstance(cog.conf, Config):
-            return cog.conf
-        elif hasattr(cog, "settings") and isinstance(cog.settings, Config):
-            return cog.settings
-        elif hasattr(cog, "_aliases") and isinstance(cog._aliases, Config):
-            return cog._aliases
-        elif hasattr(cog, "_config") and isinstance(cog._config, Config):
-            return cog._config
-        elif hasattr(cog, "_conf") and isinstance(cog._conf, Config):
-            return cog._conf
+        elif config_attribute:
+            return config_attribute[0][1]
         else:
             return None
 
@@ -82,8 +73,6 @@ class Reporter(commands.Cog):
                     cog=cog_obj.qualified_name
                     if hasattr(cog_obj, "qualified_name")
                     else cog_obj.__class__.__name__
-                    if cog != "Red"
-                    else "Red Core"
                     if cog != "Red"
                     else "Red Core"
                 )

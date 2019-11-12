@@ -1,14 +1,18 @@
+# Standard Library
 import asyncio
 import inspect
 import io
+import re
 import textwrap
 import traceback
-import re
+
 from contextlib import redirect_stdout
 from copy import copy
 
+# Cog Dependencies
 import discord
-from redbot.core import commands, checks
+
+from redbot.core import checks, commands
 from redbot.core.i18n import Translator
 from redbot.core.utils import box
 from redbot.core.utils.chat_formatting import pagify
@@ -124,7 +128,7 @@ class Dev(commands.Cog):
         The code can be within a codeblock, inline code or neither, as long
         as they are not mixed and they are formatted correctly.
         Environment Variables:
-            ctx      - command invokation context
+            ctx      - command invocation context
             bot      - bot object
             channel  - the current channel object
             author   - command author's member object
