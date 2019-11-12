@@ -1,5 +1,6 @@
-from decimal import Decimal
-from random import randint, choice, sample, shuffle, getrandbits, uniform
+# -*- coding: utf-8 -*-
+# Standard Library
+from random import choice, getrandbits, randint, sample, shuffle, uniform
 
 
 class PetMaker:
@@ -18,7 +19,7 @@ class PetMaker:
         self.name = f"{self.modifier} {self.name}"
 
     def to_json(self) -> dict:
-        output = {self.name: {"name": self.name, "bonus": self.bonus, "cha": self.cha,}}
+        output = {self.name: {"name": self.name, "bonus": self.bonus, "cha": self.cha}}
 
         return output
 

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # Standard Library
+import contextlib
+
 from typing import Union
 
 # Cog Dependencies
@@ -35,7 +37,7 @@ class AudioDB(commands.Cog):
     async def initialize(self, audio: Audio, enabled=True) -> None:
         _pass_config_to_api(self.config)
         global old_audio_cache
-        if old_audio_cache is None:
+        if old_audio_cache is None and enabled is True:
             old_audio_cache = audio.music_cache
 
         if enabled is True:
@@ -50,6 +52,16 @@ class AudioDB(commands.Cog):
         audio = self.bot.get_cog("Audio")
         if audio is not None and old_audio_cache is not None:
             audio.music_cache = old_audio_cache
+
+    @commands.Cog.listener()
+    async def on_red_audio_initialized(self, audio: Audio):
+        state = await self.config.enabled()
+        await self.initialize(audio, enabled=state)
+
+    @commands.Cog.listener()
+    async def on_red_audio_unload(self, audio: Audio):
+        with contextlib.suppress(Exception):
+            await self.initialize(audio, enabled=False)
 
     @checks.is_owner()
     @commands.group(name="audiodb")

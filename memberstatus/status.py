@@ -36,7 +36,7 @@ class MemberStatus(commands.Cog):
             game_list = [game]
             ending = f" {game}."
         playing_data = await self.get_players_per_activity(ctx=ctx, game_name=game_list)
-
+        embed_colour = await ctx.embed_colour()
         if playing_data:
             embed_list = []
             count = -1
@@ -46,14 +46,14 @@ class MemberStatus(commands.Cog):
                 if count % splitter == 0:
                     embed = discord.Embed(
                         title=_("Who's playing {name}?").format(name=game_name),
-                        colour=await ctx.embed_color(),
+                        colour=embed_colour,
                     )
 
                 title = "{key} ({value} {status})".format(
                     key=key, value=len(value), status=_("playing")
                 )
                 content = ""
-                for _, display_name, _ in sorted(value, key=itemgetter(2, 1)):
+                for mention, display_name, black_hole in sorted(value, key=itemgetter(2, 1)):
                     content += f"{display_name}\n"
 
                 outputs = pagify(content, page_length=1000, priority=True)
@@ -80,7 +80,7 @@ class MemberStatus(commands.Cog):
 
         global _  # MyPy was complaining this was a unresolved reference until global was called
         watching_data = await self.get_players_per_activity(ctx=ctx, movie=True)
-
+        embed_colour = await ctx.embed_colour()
         if watching_data:
             embed_list = []
             count = -1
@@ -88,15 +88,13 @@ class MemberStatus(commands.Cog):
             for key, value in sorted(watching_data.items()):
                 count += 1
                 if count % splitter == 0:
-                    embed = discord.Embed(
-                        title=_("Who's watching what?"), colour=await ctx.embed_color()
-                    )
+                    embed = discord.Embed(title=_("Who's watching what?"), colour=embed_colour)
 
                 title = "{key} ({value} {status})".format(
                     key=key, value=len(value), status=_("watching")
                 )
                 content = ""
-                for _, display_name, _ in sorted(value, key=itemgetter(2, 1)):
+                for mention, display_name, black_hole in sorted(value, key=itemgetter(2, 1)):
                     content += f"{display_name}\n"
 
                 outputs = pagify(content, page_length=1000, priority=True)
@@ -123,7 +121,7 @@ class MemberStatus(commands.Cog):
 
         global _  # MyPy was complaining this was a unresolved reference until global was called
         listening_data = await self.get_players_per_activity(ctx=ctx, music=True)
-
+        embed_colour = await ctx.embed_colour()
         if listening_data:
             embed_list = []
             count = -1
@@ -131,15 +129,13 @@ class MemberStatus(commands.Cog):
             for key, value in sorted(listening_data.items()):
                 count += 1
                 if count % splitter == 0:
-                    embed = discord.Embed(
-                        title=_("Who's listening to what?"), colour=await ctx.embed_color()
-                    )
+                    embed = discord.Embed(title=_("Who's listening to what?"), colour=embed_colour)
 
                 title = "{key} ({value} {status})".format(
                     key=key, value=len(value), status=_("listening")
                 )
                 content = ""
-                for _, display_name, _ in sorted(value, key=itemgetter(2, 1)):
+                for mention, display_name, black_hole in sorted(value, key=itemgetter(2, 1)):
                     content += f"{display_name}\n"
 
                 outputs = pagify(content, page_length=1000, priority=True)
@@ -175,6 +171,7 @@ class MemberStatus(commands.Cog):
         streaming_data = await self.get_players_per_activity(
             ctx=ctx, stream=True, game_name=game_list
         )
+        embed_colour = await ctx.embed_colour()
         if streaming_data:
             embed_list = []
             count = -1
@@ -183,15 +180,14 @@ class MemberStatus(commands.Cog):
                 count += 1
                 if count % splitter == 0:
                     embed = discord.Embed(
-                        title=_("Who's streaming {}?").format(game_name),
-                        colour=await ctx.embed_color(),
+                        title=_("Who's streaming {}?").format(game_name), colour=embed_colour
                     )
 
                 title = "{key} ({value} {status})".format(
                     key=key, value=len(value), status=_("streaming")
                 )
                 content = ""
-                for _, display_name, _ in sorted(value, key=itemgetter(2, 1)):
+                for mention, display_name, black_hole in sorted(value, key=itemgetter(2, 1)):
                     content += f"{display_name}\n"
 
                 outputs = pagify(content, page_length=1000, priority=True)
@@ -252,11 +248,7 @@ class MemberStatus(commands.Cog):
                         )
                         role_value = top_role.position * -1
                         if game in member_data_new:
-                            member_data_new[game].append(
-                                (member.mention, member.display_name, role_value)
-                            )
+                            member_data_new[game].append((member.mention, str(member), role_value))
                         else:
-                            member_data_new[game] = [
-                                (member.mention, member.display_name, role_value)
-                            ]
+                            member_data_new[game] = [(member.mention, str(member), role_value)]
         return member_data_new

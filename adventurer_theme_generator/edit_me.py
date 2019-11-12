@@ -1,15 +1,28 @@
-# ----------------------------------------- Need manual input ----------------------------------------------------------
-#  -------------- Theme Name ----------
+# -*- coding: utf-8 -*-
+# Standard Library
 from typing import List, Mapping, Tuple
 
-__all__ = ["theme_name",
-           "pet_count", "pet_names", "pet_modifiers",
-           "item_count", "item_material", "item_modifier", "item_slots",
-           "monster_count", "monster_names", "monster_attributes", "monster_modifiers", "any_monster_can_be_a_boss",
-           "locations",
-           "theater",
-           "reasons"]
+__all__ = [
+    "theme_name",
+    "pet_count",
+    "pet_names",
+    "pet_modifiers",
+    "item_count",
+    "item_material",
+    "item_modifier",
+    "item_slots",
+    "monster_count",
+    "monster_names",
+    "monster_attributes",
+    "monster_modifiers",
+    "any_monster_can_be_a_boss",
+    "locations",
+    "theater",
+    "reasons",
+]
 
+# ----------------------------------------- Need manual input ----------------------------------------------------------
+#  -------------- Theme Name ----------
 theme_name: str = "Template"  # Name of the Theme
 
 #  -------------- Pets values ----------

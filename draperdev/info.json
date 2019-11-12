@@ -5,7 +5,7 @@
     "disabled": false,
     "description": "Breaks your bot and Flames soul",
     "tags": [
-        "utils",
+        "utils"
     ],
     "requirements": ["orjson", "ujson"],
     "hidden": false
