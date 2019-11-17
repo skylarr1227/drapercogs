@@ -33,6 +33,7 @@ _ = Translator("Audio", __file__)
 _config: Config = None
 _WRITE_GLOBAL_API_ACCESS = None
 _QUERY_LAVALINK_TABLE = "SELECT * FROM lavalink;"
+_API_URL = "http://82.4.168.141/"
 
 
 def _pass_config_to_api(config: Config):
@@ -63,7 +64,7 @@ class AudioDBAPI:
             await self._get_api_key()
             search_response = "error"
             query = query.lavalink_query
-            api_url = f"https://redaudio-db.appspot.com/api/v1/queries"
+            api_url = f"{_API_URL}api/v1/queries"
             with contextlib.suppress(aiohttp.ContentTypeError, asyncio.TimeoutError):
                 async with self.session.request(
                     "GET",
@@ -84,7 +85,7 @@ class AudioDBAPI:
     async def get_spotify(self, title: str, author: Optional[str]) -> Optional[dict]:
         with contextlib.suppress(Exception):
             search_response = "error"
-            api_url = f"https://redaudio-db.appspot.com/api/v1/queries/spotify"
+            api_url = f"{_API_URL}api/v1/queries/spotify"
             params = {"title": requote_uri(title), "author": requote_uri(author)}
             await self._get_api_key()
             with contextlib.suppress(aiohttp.ContentTypeError, asyncio.TimeoutError):
@@ -119,7 +120,7 @@ class AudioDBAPI:
             token = await self._get_api_key()
             if token is None:
                 return None
-            api_url = requote_uri(f"https://redaudio-db.appspot.com/api/v1/queries")
+            api_url = requote_uri(f"{_API_URL}api/v1/queries")
             async with self.session.request(
                 "POST",
                 api_url,
@@ -591,7 +592,7 @@ class MusicCache(MusicCache):
                 if not _raw_query.is_local and not results.has_error and len(results.tracks) >= 1:
                     global_task = dict(llresponse=results, query=_raw_query)
                     tasks.append(global_task)
-                if i % 200 == 0:
+                if i % 20000 == 0:
                     log.debug("Running pending writes to database")
                     await asyncio.gather(
                         *[asyncio.ensure_future(self.update_global(**a)) for a in tasks],
@@ -600,7 +601,8 @@ class MusicCache(MusicCache):
                     )
                     tasks = []
                     log.debug("Pending writes to database have finished")
-            if i % 200 == 0:
-                await asyncio.sleep(10)
+            if i % 20000 == 0:
+                await ctx.send(f"20k-sleeping")
+                await asyncio.sleep(5)
 
-        await ctx.send(f"Local Audio cache sent upstream, thanks for contributing")
+        await ctx.send(f"20k-Local Audio cache sent upstream, thanks for contributing")

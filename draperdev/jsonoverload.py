@@ -14,7 +14,7 @@ class DraperDevJson(commands.Cog):
         self.config = Config.get_conf(self, _config_identifier, force_registration=True)
 
     def cog_unload(self) -> None:
-        from audiodb import json as hackyjson
+        from draperdev import hackyjson
 
         hackyjson.restore_stdlib()
 
@@ -26,7 +26,7 @@ class DraperDevJson(commands.Cog):
     @_hackydev.command(name="overload")
     async def _hackydev_overload(self, ctx: commands.Context):
         """Overload JSON lib."""
-        from audiodb import json as hackyjson
+        from draperdev import hackyjson
 
         hackyjson.overload_stdlib()
         await ctx.tick()
@@ -34,7 +34,7 @@ class DraperDevJson(commands.Cog):
     @_hackydev.command(name="revert")
     async def _hackydev_undo_overload(self, ctx: commands.Context):
         """Revert the JSON lib overload."""
-        from audiodb import json as hackyjson
+        from draperdev import hackyjson
 
         hackyjson.restore_stdlib()
         await ctx.tick()

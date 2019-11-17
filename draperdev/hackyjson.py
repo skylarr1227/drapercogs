@@ -74,7 +74,7 @@ def overload_stdlib():
 def restore_stdlib():
     import json
 
-    if backup_dumps:
+    if backup_dumps and json.dumps is dumps:
         json.loads = backup_loads
         json.load = backup_load
         json.dumps = backup_dumps
