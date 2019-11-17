@@ -27,7 +27,9 @@ class Reporter(commands.Cog):
     @staticmethod
     def maybe_get_config(cog: commands.Cog):
         cog_name = cog.qualified_name if hasattr(cog, "qualified_name") else cog.__class__.__name__
-        config_attribute = inspect.getmembers(cog, lambda a: not a[0].startswith('__') and isinstance(a[1], Config))
+        config_attribute = inspect.getmembers(
+            cog, lambda a: not a[0].startswith("__") and isinstance(a[1], Config)
+        )
         if cog_name == "Bank":
             return bank._conf
         elif cog_name == "ModLog":

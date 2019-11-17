@@ -153,9 +153,7 @@ class MonsterMaker:
         index_modifier = monster_modifiers.index(modifier)
         self.is_boss = is_boss
         self.hp = int(
-            10
-            // (uniform(0.5, 2) if not self.is_boss else uniform(0.3, 1))
-            * index_modifier
+            10 // (uniform(0.5, 2) if not self.is_boss else uniform(0.3, 1)) * index_modifier
             + index // (len(monster_list) + len(monster_modifiers))
         )
         self.pdef = round(uniform(0.5, uniform(uniform(0.5, 2) + uniform(0, 0.5), 2.5)), 2)

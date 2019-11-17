@@ -14,9 +14,9 @@ class DraperDevJson(commands.Cog):
         self.config = Config.get_conf(self, _config_identifier, force_registration=True)
 
     def cog_unload(self) -> None:
-        from draperdev import hackyjson
+        from .hackyjson import restore_stdlib
 
-        hackyjson.restore_stdlib()
+        restore_stdlib()
 
     @checks.is_owner()
     @commands.group(name="hackydev")
@@ -26,15 +26,15 @@ class DraperDevJson(commands.Cog):
     @_hackydev.command(name="overload")
     async def _hackydev_overload(self, ctx: commands.Context):
         """Overload JSON lib."""
-        from draperdev import hackyjson
+        from .hackyjson import overload_stdlib
 
-        hackyjson.overload_stdlib()
+        overload_stdlib()
         await ctx.tick()
 
     @_hackydev.command(name="revert")
     async def _hackydev_undo_overload(self, ctx: commands.Context):
         """Revert the JSON lib overload."""
-        from draperdev import hackyjson
+        from .hackyjson import restore_stdlib
 
-        hackyjson.restore_stdlib()
+        restore_stdlib()
         await ctx.tick()
