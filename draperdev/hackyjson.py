@@ -16,6 +16,25 @@ backup_loads = None
 backup_load = None
 
 
+def import_modules():
+    for name in MODULES:
+        with contextlib.suppress(Exception):
+            yield importlib.import_module(name)
+
+
+MODULES_IMPORTS = list(import_modules())
+MODULES_NAME = [module.__name__ for module in MODULES_IMPORTS]
+
+for item in MODULES:
+    with contextlib.suppress(ValueError):
+        index = MODULES_NAME.index(item)
+        mainjson = MODULES_IMPORTS[index]
+        if mainjson:
+            break
+if mainjson is None:
+    mainjson = json
+
+
 def dumps(obj, **kw):
     output = mainjson.dumps(obj)
     with contextlib.suppress(AttributeError):
@@ -34,25 +53,6 @@ def dump(obj, fp, **kw):
 def load(fp, **kw):
     data = fp.read()
     return mainjson.loads(data)
-
-
-def import_modules():
-    for name in MODULES:
-        with contextlib.suppress(Exception):
-            yield importlib.import_module(name)
-
-
-MODULES_IMPORTS = list(import_modules())
-MODULES_NAME = [module.__name__ for module in MODULES_IMPORTS]
-
-for item in MODULES:
-    with contextlib.suppress(ValueError):
-        index = MODULES_NAME.index(item)
-        mainjson = MODULES_IMPORTS[index]
-        if mainjson:
-            break
-if mainjson is None:
-    mainjson = json
 
 
 def overload_stdlib():
