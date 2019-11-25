@@ -33,7 +33,7 @@ _ = Translator("Audio", __file__)
 _config: Config = None
 _WRITE_GLOBAL_API_ACCESS = None
 _QUERY_LAVALINK_TABLE = "SELECT * FROM lavalink;"
-_API_URL = "http://82.4.168.141/"
+_API_URL = "http://api.redbot.app/"
 
 
 def _pass_config_to_api(config: Config):
