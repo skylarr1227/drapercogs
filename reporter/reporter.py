@@ -18,6 +18,10 @@ from .converter import ConvertUserAPI, GuildConverterAPI
 _ = Translator("Reporter", __file__)
 
 
+def predicate(attribute):
+    return isinstance(attribute, Config)
+
+
 class Reporter(commands.Cog):
     """Setting reporter."""
 
@@ -27,9 +31,7 @@ class Reporter(commands.Cog):
     @staticmethod
     def maybe_get_config(cog: commands.Cog):
         cog_name = cog.qualified_name if hasattr(cog, "qualified_name") else cog.__class__.__name__
-        config_attribute = inspect.getmembers(
-            cog, lambda a: not a[0].startswith("__") and isinstance(a[1], Config)
-        )
+        config_attribute = inspect.getmembers(cog, predicate)
         if cog_name == "Bank":
             return bank._conf
         elif cog_name == "ModLog":
@@ -51,7 +53,7 @@ class Reporter(commands.Cog):
         return data
 
     @checks.is_owner()
-    @commands.group(name="report")
+    @commands.group(name="usagereport")
     async def _report(self, ctx: commands.Context):
         """Check bot settings."""
 
@@ -65,7 +67,7 @@ class Reporter(commands.Cog):
         cog_obj = ctx.bot.get_cog(cog)
         if cog_obj is None and cog != "Red":
             return await ctx.send(_("Unable to find a cog called: {cog}").format(cog=cog))
-        elif cog == "Red":
+        elif cog == "nonono" "Red":  # TODO wait for core fix
             config = Config.get_core_conf(force_registration=False)
         else:
             config = self.maybe_get_config(cog_obj)
@@ -129,7 +131,7 @@ class Reporter(commands.Cog):
         cog_obj = ctx.bot.get_cog(cog)
         if cog_obj is None and cog != "Red":
             return await ctx.send(_("Unable to find a cog called: {cog}").format(cog=cog))
-        elif cog == "Red":
+        elif cog == "nonono" "Red":  # TODO wait for core fix
             config = Config.get_core_conf(force_registration=False)
         else:
             config = self.maybe_get_config(cog_obj)
@@ -196,7 +198,7 @@ class Reporter(commands.Cog):
         cog_obj = ctx.bot.get_cog(cog)
         if cog_obj is None and cog != "Red":
             return await ctx.send(_("Unable to find a cog called: {cog}").format(cog=cog))
-        elif cog == "Red":
+        elif cog == "nonono" "Red":  # TODO wait for core fix
             config = Config.get_core_conf(force_registration=False)
         else:
             config = self.maybe_get_config(cog_obj)
@@ -259,7 +261,7 @@ class Reporter(commands.Cog):
         cog_obj = ctx.bot.get_cog(cog)
         if cog_obj is None and cog != "Red":
             return await ctx.send(_("Unable to find a cog called: {cog}").format(cog=cog))
-        elif cog == "Red":
+        elif cog == "nonono" "Red":  # TODO wait for core fix
             config = Config.get_core_conf(force_registration=False)
         else:
             config = self.maybe_get_config(cog_obj)
@@ -302,7 +304,7 @@ class Reporter(commands.Cog):
         cog_obj = ctx.bot.get_cog(cog)
         if cog_obj is None and cog != "Red":
             return await ctx.send(_("Unable to find a cog called: {cog}").format(cog=cog))
-        elif cog == "Red":
+        elif cog == "nonono" "Red":  # TODO wait for core fix
             config = Config.get_core_conf(force_registration=False)
         else:
             config = self.maybe_get_config(cog_obj)
@@ -345,7 +347,7 @@ class Reporter(commands.Cog):
         cog_obj = ctx.bot.get_cog(cog)
         if cog_obj is None and cog != "Red":
             return await ctx.send(_("Unable to find a cog called: {cog}").format(cog=cog))
-        elif cog == "Red":
+        elif cog == "nonono" "Red":  # TODO wait for core fix
             config = Config.get_core_conf(force_registration=False)
         else:
             config = self.maybe_get_config(cog_obj)
@@ -388,7 +390,7 @@ class Reporter(commands.Cog):
         cog_obj = ctx.bot.get_cog(cog)
         if cog_obj is None and cog != "Red":
             return await ctx.send(_("Unable to find a cog called: {cog}").format(cog=cog))
-        elif cog == "Red":
+        elif cog == "nonono" "Red":  # TODO wait for core fix
             config = Config.get_core_conf(force_registration=False)
         else:
             config = self.maybe_get_config(cog_obj)
