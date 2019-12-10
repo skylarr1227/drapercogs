@@ -1,0 +1,11 @@
+{
+    "author": ["Drapersniper"],
+    "install_msg": "This cog will allow you to setup the services supported by the Gaming profile and User Status",
+    "name": "Publisher Management",
+    "disabled": false,
+    "description": "Add accounts for services users can add to their profiles",
+    "tags": [
+        "Utility"
+    ],
+    "hidden": false
+}
