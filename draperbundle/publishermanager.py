@@ -35,8 +35,8 @@ class PublisherManager(commands.Cog):
     async def service(self, ctx: commands.Context):
         """Add,Remove,Show services"""
 
-    @service.command(name="add", aliases=["+"])
     @checks.is_admin_or_superior()
+    @service.command(name="add", aliases=["+"])
     async def service_add(
         self, ctx: commands.Context, identifier: str, command: str, *, name: str
     ):
@@ -49,8 +49,8 @@ class PublisherManager(commands.Cog):
             services.update(new_service)
         await ctx.tick()
 
-    @service.command(name="remove", aliases=["-", "delete"])
     @checks.is_admin_or_superior()
+    @service.command(name="remove", aliases=["-", "delete"])
     async def service_remove(self, ctx: commands.Context, *, message: str):  # @UnusedVariable
         """Remove a service from the list of supported services"""
         service_group = self.config.custom("SERVICES")
@@ -68,8 +68,8 @@ class PublisherManager(commands.Cog):
             embed.add_field(name=name, value=f"Command: {command}", inline=False)
         await ctx.send(embed=embed)
 
-    @service.command(name="playing", enabled=True)
     @checks.is_admin_or_superior()
+    @service.command(name="playing", enabled=True)
     async def service_playing(self, ctx):
         """Shows how many games needs to be parsed"""
         await self.update_game_database(manual=True)
@@ -82,8 +82,8 @@ class PublisherManager(commands.Cog):
             await ctx.send(page)
         await ctx.tick()
 
-    @service.group(name="parse")
     @checks.is_admin_or_superior()
+    @service.group(name="parse")
     async def _parse(self, ctx):
         """Parses game database"""
 
