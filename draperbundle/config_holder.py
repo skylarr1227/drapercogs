@@ -11,7 +11,6 @@ from .constants import (
     minecraft_icon,
     osrs_icon,
 )
-from .country import default_countries
 
 
 class ConfigHolderClass(object):
@@ -29,9 +28,6 @@ class ConfigHolderClass(object):
     )
     PlayerStatus = Config.get_conf(
         None, identifier=3584065639, force_registration=True, cog_name="PlayerStatus"
-    )
-    WorldData = Config.get_conf(
-        None, identifier=4174289919, force_registration=True, cog_name="WorldData"
     )
     LogoData = Config.get_conf(
         None, identifier=7056820599, force_registration=True, cog_name="LogoData"
@@ -259,8 +255,6 @@ ConfigHolder.PublisherManager.init_custom("SERVICES", 2)
 
 ConfigHolder.PublisherManager.register_custom("SERVICES", **default_custom_PublisherManager)
 ConfigHolder.PlayerStatus.register_guild(**default_guild_StatusManager)
-ConfigHolder.WorldData.init_custom("COUNTRY_DATA", 2)
-ConfigHolder.WorldData.register_custom("COUNTRY_DATA", **default_countries)
 ConfigHolder.LogoData.init_custom("LOGOS", 1)
 ConfigHolder.LogoData.register_custom("LOGOS", **default_custom_Logos)
 ConfigHolder.CustomChannels.register_guild(**default_guild_CustomChannels)

@@ -13,9 +13,9 @@ from discord.ext.commands.converter import Greedy
 from redbot.core import commands, checks
 from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
 
-from cog_shared.draper_lib.config_holder import ConfigHolder
-from cog_shared.draper_lib.constants import CONTINENT_DATA
-from cog_shared.draper_lib.utilities import (
+from .config_holder import ConfigHolder
+from .constants import CONTINENT_DATA
+from .utilities import (
     update_profile,
     account_adder,
     update_member_atomically,
@@ -27,6 +27,7 @@ from cog_shared.draper_lib.utilities import (
     get_role_named,
     get_member_activity,
 )
+
 logger = logging.getLogger("red.drapercogs.profile")
 
 

@@ -23,10 +23,11 @@ from pytz import UTC
 from redbot.core import commands
 from redbot.core.utils.chat_formatting import humanize_list, pagify
 
+from .country import WorldData
 from .config_holder import ConfigHolder
-from .constants import CONTINENT_DATA, TIMEZONE_REGEX, MessageTypes
+from .constants import CONTINENT_DATA, TIMEZONE_REGEX
 
-logger = logging.getLogger("red.drapercogs.draper_lib.utils")
+logger = logging.getLogger("red.drapercogs.draperbundle.utils")
 _START = "#"
 
 
@@ -189,7 +190,7 @@ async def update_profile(bot, user_data: dict, author: discord.User):
 
     await author.send("What country are you from (e.g. United Kingdom, United states)?")
     cached_country = ""
-    country_data = await ConfigHolder.WorldData.custom("COUNTRY_DATA").get_raw("country")
+    country_data = WorldData.get("country", {})
     validcountry_keys = list(country_data.keys())
     validcountries = list(value.get("name") for _, value in country_data.items())
 
@@ -220,9 +221,7 @@ async def update_profile(bot, user_data: dict, author: discord.User):
                 break
 
     if cached_country:
-        country_data = (await ConfigHolder.WorldData.custom("COUNTRY_DATA").get_raw()).get(
-            "country", {}
-        )
+        country_data = WorldData.get("country", {})
         region = country_data.get(cached_country, {}).get("region")
         country_timezones = country_data.get(cached_country, {}).get("timezones")
         user_data["subzone"] = country_data.get(cached_country, {}).get("subregion")
@@ -233,7 +232,7 @@ async def update_profile(bot, user_data: dict, author: discord.User):
     if not region:
         await author.send("Which zone are you from?")
         embed = discord.Embed(
-            title="Pick a number that matches your zone", colour=MessageTypes.get_colour(None)
+            title="Pick a number that matches your zone"
         )
 
         for key, value in CONTINENT_DATA.items():
@@ -287,7 +286,7 @@ async def update_profile(bot, user_data: dict, author: discord.User):
             "There are multiple timezone for your country, please pick the one that match yours?",
         )
         embed = discord.Embed(
-            title="Pick a number that matches your timezone", colour=MessageTypes.get_colour(None)
+            title="Pick a number that matches your timezone"
         )
         for key, value in country_timezones_dict.items():
             embed.add_field(name=value.upper(), value=key)
@@ -667,7 +666,6 @@ async def smart_prompt(bot, author: discord.User, prompt_data: dict, platforms: 
         prompt_data = remove_old(prompt_data, key)
         embed = discord.Embed(
             title="Pick a number that matches the service you want to add",
-            colour=MessageTypes.get_colour(None),
         )
 
         for key, value in prompt_data.items():

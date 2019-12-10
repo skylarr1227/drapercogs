@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 null = None
-default_countries = {
+WorldData = {
     "country": {
         "afghanistan": {
             "alpha2_code": "AF",

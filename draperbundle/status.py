@@ -11,7 +11,7 @@ from redbot.core import commands
 from redbot.core.utils.chat_formatting import pagify
 from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
 
-from cog_shared.draper_lib.config_holder import ConfigHolder
+from .config_holder import ConfigHolder
 
 _ = lambda s: s
 

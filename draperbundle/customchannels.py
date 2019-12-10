@@ -11,7 +11,7 @@ from redbot.core import commands, checks
 from redbot.core.bot import Red
 from redbot.core.utils.chat_formatting import box
 
-from cog_shared.draper_lib.config_holder import ConfigHolder
+from .config_holder import ConfigHolder
 
 admin_permissions = discord.PermissionOverwrite(
     speak=True,

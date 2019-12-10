@@ -1,0 +1,14 @@
+{
+    "author": ["Drapersniper"],
+    "name": "Draper cogs",
+    "disabled": false,
+    "description": "A bundle of Cogs.",
+    "tags": [
+        "voice-channels",
+        "gaming",
+        "profile",
+        "utility"
+    ],
+    "hidden": false,
+    "requirements": ["regex", "python-dateutil", "pytz"]
+}

@@ -6,19 +6,17 @@ Created on Mar 26, 2019
 """
 import logging
 from copy import copy
-from datetime import datetime, timezone
 from operator import itemgetter
 
 import discord
 import regex
 from discord.ext.commands.converter import Greedy  # @UnusedImport
 from redbot.core import commands
-from redbot.core.config import Config
 from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
 
-from cog_shared.draper_lib.config_holder import ConfigHolder
-from cog_shared.draper_lib.constants import REPLACE_BRACKER
-from cog_shared.draper_lib.utilities import (
+from .config_holder import ConfigHolder
+from .constants import REPLACE_BRACKER
+from .utilities import (
     get_all_user_rigs,
     get_date_time,
     get_date_string,
