@@ -26,7 +26,7 @@ from draper_lib.utilities import (
 
 __updated__ = "27-04-2019"
 
-logger = logging.getLogger("red.pcspecs")
+logger = logging.getLogger("red.drapercogs.pc_specs")
 
 
 class PCSpecs(commands.Cog):
