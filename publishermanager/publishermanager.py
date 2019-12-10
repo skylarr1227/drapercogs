@@ -12,8 +12,8 @@ import discord
 from redbot.core import commands, checks
 from redbot.core.utils.chat_formatting import pagify
 
-from draper_lib.config_holder import ConfigHolder
-from draper_lib.utilities import get_member_activity, get_supported_platforms
+from cog_shared.draper_lib.config_holder import ConfigHolder
+from cog_shared.draper_lib.utilities import get_member_activity, get_supported_platforms
 
 __updated__ = "17-04-2019"
 logger = logging.getLogger("red.drapercogs.publisher_manager")

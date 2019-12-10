@@ -2,7 +2,7 @@
     "type": "SHARED_LIBRARY",
     "hidden": true,
     "author": [
-        "draper"
+        "Drapersniper"
     ],
     "requirements": ["regex", "python-dateutil", "pytz"],
     "min_bot_version": "3.1.8"

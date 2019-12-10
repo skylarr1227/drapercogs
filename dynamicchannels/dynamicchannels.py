@@ -11,7 +11,7 @@ from redbot.core import commands, checks
 from redbot.core.bot import Red
 from redbot.core.utils.chat_formatting import box
 
-from draper_lib.config_holder import ConfigHolder
+from cog_shared.draper_lib.config_holder import ConfigHolder
 
 logger = logging.getLogger("red.drapercogs.dynamic_channels")
 

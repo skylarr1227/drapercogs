@@ -15,9 +15,9 @@ from redbot.core import commands
 from redbot.core.config import Config
 from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
 
-from draper_lib.config_holder import ConfigHolder
-from draper_lib.constants import REPLACE_BRACKER
-from draper_lib.utilities import (
+from cog_shared.draper_lib.config_holder import ConfigHolder
+from cog_shared.draper_lib.constants import REPLACE_BRACKER
+from cog_shared.draper_lib.utilities import (
     get_all_user_rigs,
     get_date_time,
     get_date_string,
