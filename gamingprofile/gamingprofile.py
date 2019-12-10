@@ -304,7 +304,7 @@ class GamingProfile(commands.Cog):
         self,
         channel: discord.abc.Messageable,
         user: Union[discord.User, discord.Member],
-        when: datetime.datetime,
+        when: datetime,
     ):
         if user.guild:
             if user.guild.id not in self._cache:
