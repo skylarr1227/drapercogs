@@ -17,9 +17,6 @@ class ConfigHolderClass(object):
     AccountManager = Config.get_conf(
         None, identifier=1273062035, force_registration=True, cog_name="AccountManager"
     )
-    Feedback = Config.get_conf(
-        None, identifier=2579451688, force_registration=True, cog_name="Feedback"
-    )
     GamingProfile = Config.get_conf(
         None, identifier=9420012589, force_registration=True, cog_name="GamingProfile"
     )
@@ -37,9 +34,6 @@ class ConfigHolderClass(object):
     )
     LogoData = Config.get_conf(
         None, identifier=7056820599, force_registration=True, cog_name="LogoData"
-    )
-    TrialManager = Config.get_conf(
-        None, identifier=9035370736, force_registration=True, cog_name="TrialManager"
     )
     DynamicChannels = Config.get_conf(
         None, identifier=3172784244, force_registration=True, cog_name="DynamicChannels"
@@ -212,9 +206,6 @@ default_guild_StatusManager = dict(
         "lfg-mw": ("Modern Warfare", ["Call of Duty: Modern Warfare", "Modern Warfare"]),
     },
 )
-default_guild_TrialManager = dict(
-    trial_period=None, trial_room_id=None, member_role_id=None, trial_role_id=None, trials={}
-)
 default_custom_Logos = dict(
     battlenet="https://upload.wikimedia.org/wikipedia/en/2/23/Blizzard_Battle.net_logo.png",
     epic="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Epic_Games_logo.svg/516px-Epic_Games_logo.svg.png",
@@ -247,7 +238,6 @@ default_member_CustomChannels = dict(currentRooms={})
 default_guild_DynamicChannels = dict(
     dynamic_channels={}, custom_channels={}, user_created_voice_channels={}
 )
-default_guild_NameManager = {"enabled": False}
 default_guild_RandomQuotes = {
     "enabled": False,
     "quotesToKeep": 100,
@@ -266,11 +256,9 @@ ConfigHolder.PCSpecs.register_user(**default_member_PCSpecs)
 ConfigHolder.PublisherManager.register_custom("SERVICES", **default_custom_PublisherManager)
 ConfigHolder.PlayerStatus.register_guild(**default_guild_StatusManager)
 ConfigHolder.WorldData.register_custom("COUNTRY_DATA", **default_countries)
-ConfigHolder.TrialManager.register_guild(**default_guild_TrialManager)
 ConfigHolder.LogoData.register_custom("LOGOS", **default_custom_Logos)
 ConfigHolder.CustomChannels.register_guild(**default_guild_CustomChannels)
 ConfigHolder.CustomChannels.register_member(**default_member_CustomChannels)
 ConfigHolder.DynamicChannels.register_guild(**default_guild_DynamicChannels)
-ConfigHolder.NameManager.register_guild(**default_guild_NameManager)
 ConfigHolder.RandomQuotes.register_guild(**default_guild_RandomQuotes)
 ConfigHolder.RandomQuotes.register_channel(**default_channel_RandomQuotes)
