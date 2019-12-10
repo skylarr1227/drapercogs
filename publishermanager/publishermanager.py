@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Created on Mar 26, 2019
 
@@ -89,7 +90,7 @@ class PublisherManager(commands.Cog):
     @_parse.command(name="completed")
     async def _parse_completed(self, ctx, value: str):
         """Reparses completed with the following value
-        
+
         Accepts a Service, True, False, None, all
         """
         checker = value.lower()

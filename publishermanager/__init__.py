@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from .publishermanager import PublisherManager
 
 from cog_shared.draper_lib import extra_setup

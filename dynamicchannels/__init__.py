@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from .dynamicchannels import DynamicChannels
 from cog_shared.draper_lib import extra_setup
 

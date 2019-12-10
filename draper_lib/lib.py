@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from redbot.core.commands import commands
 
 

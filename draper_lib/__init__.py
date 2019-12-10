@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import importlib
 from functools import wraps
 from . import lib

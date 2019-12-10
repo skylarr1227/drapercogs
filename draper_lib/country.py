@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 null = None
 default_countries = {
     "country": {

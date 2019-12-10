@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from redbot.core.config import Config
 
 from .constants import (
@@ -248,6 +249,9 @@ default_guild_RandomQuotes = {
 }
 default_channel_RandomQuotes = {"quotes": {}, "permaQuotes": {}}
 default_guild_GamingProfile = {"no_profile_role": None, "profile_role": None}
+ConfigHolder.PublisherManager.init_custom("SERVICES", 2)
+ConfigHolder.WorldData.init_custom("COUNTRY_DATA", 3)
+ConfigHolder.LogoData.init_custom("LOGOS", 1)
 
 ConfigHolder.AccountManager.register_user(**default_member_AccountManager)
 ConfigHolder.GamingProfile.register_user(**default_member_GamingProfile)
