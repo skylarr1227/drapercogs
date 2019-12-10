@@ -1,0 +1,11 @@
+{
+    "author": ["Drapersniper"],
+    "name": "Dynamic Channels",
+    "disabled": false,
+    "description": "This cog can be used to create dynamic voice channels in a server so that a new channel is created when users join the current channel.",
+    "tags": [
+        "voice-channels",
+        "utility"
+    ],
+    "hidden": false
+}
