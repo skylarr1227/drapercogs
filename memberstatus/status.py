@@ -7,19 +7,20 @@ from typing import List
 # Cog Dependencies
 import discord
 
-from redbot.core import Config, commands
+from redbot.core import commands
 from redbot.core.utils.chat_formatting import pagify
 from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
 
+from draper_lib.config_holder import ConfigHolder
+
 _ = lambda s: s
-_config_identifier = 3584065639
 
 
 class MemberStatus(commands.Cog):
     def __init__(self, bot, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.bot = bot
-        self.config = Config.get_conf(self, identifier=_config_identifier, force_registration=True)
+        self.config = ConfigHolder.PlayerStatus
 
     @commands.command()
     @commands.guild_only()
