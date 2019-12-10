@@ -259,8 +259,6 @@ default_guild_RandomQuotes = {
 default_channel_RandomQuotes = {"quotes": {}, "permaQuotes": {}}
 
 ConfigHolder.AccountManager.register_member(**default_member_AccountManager)
-ConfigHolder.GameStatsManager.register_member(**default_member_GameStatsManager)
-ConfigHolder.GameStatsManager.register_guild(**default_guild_GameStatsManager)
 ConfigHolder.GamingProfile.register_member(**default_member_GamingProfile)
 ConfigHolder.PCSpecs.register_member(**default_member_PCSpecs)
 ConfigHolder.PublisherManager.register_custom("SERVICES", **default_custom_PublisherManager)
