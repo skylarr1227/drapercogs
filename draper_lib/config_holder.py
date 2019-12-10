@@ -20,9 +20,6 @@ class ConfigHolderClass(object):
     Feedback = Config.get_conf(
         None, identifier=2579451688, force_registration=True, cog_name="Feedback"
     )
-    GameStatsManager = Config.get_conf(
-        None, identifier=1042759506, force_registration=True, cog_name="GameStatsManager"
-    )
     GamingProfile = Config.get_conf(
         None, identifier=9420012589, force_registration=True, cog_name="GamingProfile"
     )
@@ -58,31 +55,6 @@ class ConfigHolderClass(object):
 ConfigHolder = ConfigHolderClass()
 
 default_member_AccountManager = dict(account=dict(origin=None, uplay=None))
-default_guild_GameStatsManager = {"enabled": False}
-default_member_GameStatsManager = dict(
-    stats=dict(
-        bfv=dict(
-            enabled=True,
-            rank=dict(),
-            timeplayed=None,
-            scoreperminute=None,
-            mostusedclass=None,
-            kdratio={},
-            wlratio={},
-            accuracy={},
-            team={},
-            extra={},
-            assault={},
-            recon={},
-            support={},
-            medic={},
-            vehicles=dict(),
-        ),
-        apex=dict(enabled=True),
-        dv2=dict(enabled=True),
-    )
-)
-
 default_member_GamingProfile = dict(
     discord_user_id=None,
     discord_user_name=None,
