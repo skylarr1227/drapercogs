@@ -26,7 +26,6 @@ from cog_shared.draper_lib.utilities import (
     get_role_named,
     get_member_activity,
 )
-
 logger = logging.getLogger("red.drapercogs.profile")
 
 
@@ -35,7 +34,7 @@ class GamingProfile(commands.Cog):
         self.bot = bot
         self.session = aiohttp.ClientSession()
         self.profileConfig = ConfigHolder.GamingProfile
-        self.config = self.config
+        self.config = ConfigHolder.AccountManager
         self._cache = {}
         self._task = self.bot.loop.create_task(self._save_to_config())
 
