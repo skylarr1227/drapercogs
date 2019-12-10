@@ -257,10 +257,12 @@ default_guild_RandomQuotes = {
     "channels": {},
 }
 default_channel_RandomQuotes = {"quotes": {}, "permaQuotes": {}}
+default_guild_GamingProfile = {"no_profile_role": None, "profile_role": None}
 
-ConfigHolder.AccountManager.register_member(**default_member_AccountManager)
-ConfigHolder.GamingProfile.register_member(**default_member_GamingProfile)
-ConfigHolder.PCSpecs.register_member(**default_member_PCSpecs)
+ConfigHolder.AccountManager.register_user(**default_member_AccountManager)
+ConfigHolder.GamingProfile.register_user(**default_member_GamingProfile)
+ConfigHolder.GamingProfile.register_guild(**default_guild_GamingProfile)
+ConfigHolder.PCSpecs.register_user(**default_member_PCSpecs)
 ConfigHolder.PublisherManager.register_custom("SERVICES", **default_custom_PublisherManager)
 ConfigHolder.PlayerStatus.register_guild(**default_guild_StatusManager)
 ConfigHolder.WorldData.register_custom("COUNTRY_DATA", **default_countries)

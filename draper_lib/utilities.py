@@ -257,7 +257,8 @@ async def update_profile(bot, user_data: dict, author: discord.User):
 
     if not country_timezones:
         await author.send(
-            "What your timezone?(say 'n' to leave it empty) (Use UTC Format <UTC+0> - Use https://www.vercalendario.info/en/what/utc-offset-by-country.html for help)",
+            "What your timezone?(say 'n' to leave it empty) (Use UTC Format <UTC+0> - "
+            "Use https://www.vercalendario.info/en/what/utc-offset-by-country.html for help)",
         )
         msg = await bot.wait_for("message", check=check)
         if msg and msg.content.lower() != "n":
@@ -818,9 +819,11 @@ async def get_all_by_platform(platform: str, guild: discord.Guild, pm: bool = Fa
     return data_list
 
 
-def get_date_time(s: Union[str, datetime] = None):
+def get_date_time(s: Union[int, str, datetime] = None):
     if s is None:
         return datetime.now(tz=timezone.utc)
+    if isinstance(s, int):
+        return datetime.fromtimestamp(s, tz=timezone.utc)
     if isinstance(s, datetime):
         if not s.tzinfo:
             return UTC.localize(s)  # @UndefinedVariable
@@ -890,3 +893,19 @@ OPERATORS = {
     ast.Div: op.truediv,
     ast.USub: op.neg,
 }
+
+
+def get_role_named(guild, name):
+    if not guild:
+        return None
+
+    roles = guild.roles
+
+    def pred(c):
+        try:
+            return str(c.name).strip() == name.strip()
+        except Exception as e:
+            logger.error(f"Error when trying to find role: {name}: E: {e}")
+            return False
+
+    return discord.utils.find(pred, roles)
