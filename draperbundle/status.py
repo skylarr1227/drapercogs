@@ -55,7 +55,7 @@ class MemberStatus(commands.Cog):
                 )
                 content = ""
                 for mention, display_name, black_hole, account in sorted(value, key=itemgetter(2, 1)):
-                    content += f"{mention}"
+                    content += f"{display_name}"
                     if account:
                         content += f" | {account}"
                     content += "\n"
@@ -99,7 +99,7 @@ class MemberStatus(commands.Cog):
                 )
                 content = ""
                 for mention, display_name, black_hole, account in sorted(value, key=itemgetter(2, 1)):
-                    content += f"{mention}"
+                    content += f"{display_name}"
                     if account:
                         content += f" | {account}"
                     content += "\n"
@@ -143,7 +143,7 @@ class MemberStatus(commands.Cog):
                 )
                 content = ""
                 for mention, display_name, black_hole, account in sorted(value, key=itemgetter(2, 1)):
-                    content += f"{mention}"
+                    content += f"{display_name}"
                     if account:
                         content += f" | {account}"
                     content += "\n"
@@ -198,7 +198,7 @@ class MemberStatus(commands.Cog):
                 )
                 content = ""
                 for mention, display_name, black_hole, account in sorted(value, key=itemgetter(2, 1)):
-                    content += f"{mention}"
+                    content += f"{display_name}"
                     if account:
                         content += f" | {account}"
                     content += "\n"
