@@ -295,7 +295,7 @@ class GamingProfile(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_without_command(self, message):
-        self._cache[message.guild.id][message.author.id] = int(time.time())
+        self._cache[message.author.id] = int(time.time())
 
     @commands.Cog.listener()
     async def on_typing(
