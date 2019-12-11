@@ -118,7 +118,7 @@ class MemberStatus(commands.Cog):
                 ctx, pages=embed_list, controls=DEFAULT_CONTROLS, message=None, page=0, timeout=60
             )
         else:
-            await ctx.maybe_send_embed(_("No one is Watching anything."))
+            await ctx.maybe_send_embed(_("No one is watching anything."))
 
     @commands.command()
     @commands.guild_only()

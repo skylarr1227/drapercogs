@@ -56,7 +56,7 @@ class DynamicChannels(commands.Cog):
             await ctx.send(
                 f"Added {category_id} to the whitelist\nRooms will be called {room_name} and have a size of {size}",
             )
-        category = next((c for c in ctx.guild.categories if c.id == category_id))
+        category = next((c for c in ctx.guild.categories if c.id == int(category_id)), None)
         await ctx.guild.create_voice_channel(
             user_limit=size,
             name=room_name.format(number=1),
@@ -100,7 +100,7 @@ class DynamicChannels(commands.Cog):
                 f"Added {category_id} to the whitelist\nRooms will be called "
                 f"{room_name} and have a size of {size}",
             )
-        category = next((c for c in ctx.guild.categories if c.id == category_id))
+        category = next((c for c in ctx.guild.categories if c.id == int(category_id)), None)
         await ctx.guild.create_voice_channel(
             user_limit=size,
             name=room_name.format(number=1),
