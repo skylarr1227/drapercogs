@@ -235,7 +235,6 @@ class CustomChannels(commands.Cog):
                 channel = guild.get_channel(channel_id)
                 if channel and sum(1 for _ in channel.members) < 1:
                     logger.info(f"{channel.name} is empty trying to delete it")
-                    await asyncio.sleep(5)
                     try:
                         await channel.delete(reason="User created room is empty cleaning up")
                         logger.info(f"{channel.name} has been removed")
