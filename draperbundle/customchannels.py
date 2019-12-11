@@ -159,6 +159,10 @@ class CustomChannels(commands.Cog):
     async def on_voice_state_update(
         self, member: discord.Member, before: discord.VoiceState, after: discord.VoiceState
     ):
+        guild = member.guild
+        has_perm = guild.me.guild_permissions.manage_channels
+        if not has_perm:
+            return
         whitelist = await self.config.guild(member.guild).category_with_button()
         user_created_channels = await self.config.guild(member.guild).user_created_voice_channels()
         if (
