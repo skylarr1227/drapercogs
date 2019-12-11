@@ -168,7 +168,7 @@ def eval_(node):
 
 
 async def get_supported_platforms(lists: bool = True, supported: bool = False):
-    platforms = await ConfigHolder.PublisherManager.custom("SERVICES").get_raw("services")
+    platforms = await (ConfigHolder.PublisherManager.custom("SERVICES").get_raw()).get("services")
     if supported:
         return [(value.get("command")) for _, value in platforms.items()]
     if lists:
