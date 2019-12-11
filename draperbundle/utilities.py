@@ -168,7 +168,9 @@ def eval_(node):
 
 
 async def get_supported_platforms(lists: bool = True, supported: bool = False):
-    platforms = (await ConfigHolder.PublisherManager.custom("SERVICES").get_raw()).get("services", {})
+    platforms = (await ConfigHolder.PublisherManager.custom("SERVICES").get_raw()).get(
+        "services", {}
+    )
     if supported:
         return [(value.get("command")) for _, value in platforms.items()]
     if lists:
@@ -769,7 +771,6 @@ def get_member_named(guild, name):
     return discord.utils.find(pred, members)
 
 
-
 async def get_all_by_platform(platform: str, guild: discord.Guild, pm: bool = False):
     platform = platform.lower().strip()
     data = await ConfigHolder.AccountManager.all_members(guild)
@@ -825,7 +826,8 @@ async def update_member_atomically(
     wrapping
     """
     me = member.guild.me
-    if member == me:
+    has_perm = me.permission_in(me.guild.text_channels[0]).manage_roles
+    if not has_perm or member == me:
         return
     give = give or []
     remove = remove or []
