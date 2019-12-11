@@ -351,6 +351,7 @@ class GamingProfile(commands.Cog):
             "nickname_extas",
         )
         data = await self.profileConfig.user(member).get_raw()
+        last_seen = None
         if data.get("discord_user_id"):
             if member:
                 last_seen = await self.profileConfig.user(member).seen()

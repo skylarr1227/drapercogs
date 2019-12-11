@@ -429,8 +429,8 @@ async def get_all_user_profiles(
         is_bot = value.get("is_bot")
         member = guild.get_member(discord_id)
         has_profile = await has_a_profile(member)
+        last_seen = None
         if inactivity and isinstance(timespan, int):
-
             if member:
                 if member.status != discord.Status.offline:
                     last_seen = datetime.now(tz=timezone.utc)
@@ -440,7 +440,7 @@ async def get_all_user_profiles(
                 last_seen_datetime = get_date_time(last_seen).timestamp()
             else:
                 last_seen_datetime = None
-            if last_seen_datetime:
+            if inactivity and last_seen_datetime:
                 if last_seen_datetime < time_allowed:
                     innactive = True
 
@@ -585,9 +585,8 @@ async def get_mention(ctx, args: list, bot, get_platform=True, stats=False):
         if sum(1 for x in message.mentions) >= 2:
             target_member = [x for x in message.mentions if x != author or x != ctx.guild.me][0]
         member_name = target_member.display_name
-        if get_platform:
-            if len(args) > 1:
-                platform = args[1].lower() if args[1].lower() in supported_platforms else None
+        if get_platform and len(args) > 1:
+            platform = args[1].lower() if args[1].lower() in supported_platforms else None
         target_user = bot.get_user(target_member.id)
     else:
         if len(args) == 2:
