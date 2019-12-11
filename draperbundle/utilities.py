@@ -422,7 +422,7 @@ def get_member_activity(member: discord.Member, database=False):
 async def get_all_user_profiles(
     guild, pm=False, withprofile=True, inactivity=False, timespan=None
 ):
-    data = await ConfigHolder.GamingProfile.all_members(guild)
+    data = await ConfigHolder.GamingProfile.all_users()
     data_list = []
     role_value = 0
     if inactivity and isinstance(timespan, int):
@@ -432,6 +432,8 @@ async def get_all_user_profiles(
     for discord_id, value in data.items():
         is_bot = value.get("is_bot")
         member = guild.get_member(discord_id)
+        if not member:
+            continue
         has_profile = await has_a_profile(member)
         last_seen = None
         if inactivity and isinstance(timespan, int):
@@ -547,7 +549,7 @@ def get_date_string(then: datetime, now: datetime = datetime.now(timezone.utc)):
 
 
 async def get_all_user_rigs(guild, pm=False):
-    data = await ConfigHolder.PCSpecs.all_members(guild)
+    data = await ConfigHolder.PCSpecs.all_users()
     data_list = []
     role_value = 0
     for discord_id, value in data.items():
@@ -561,6 +563,8 @@ async def get_all_user_rigs(guild, pm=False):
         elif not member or pm:
             username_true = None
             mention = username_true
+        else:
+            continue
 
         rig_data = value.get("rig", {}).get("CPU")
         if rig_data and username_true and mention:
@@ -773,7 +777,7 @@ def get_member_named(guild, name):
 
 async def get_all_by_platform(platform: str, guild: discord.Guild, pm: bool = False):
     platform = platform.lower().strip()
-    data = await ConfigHolder.AccountManager.all_members(guild)
+    data = await ConfigHolder.AccountManager.all_users()
     data_list = []
     role_value = 0
 
@@ -788,6 +792,8 @@ async def get_all_by_platform(platform: str, guild: discord.Guild, pm: bool = Fa
         elif not member or pm:
             username_true = None
             mention = f"<@!{discord_id}>"
+        else:
+            continue
 
         account = value.get("account", {}).get(platform)
         if platform == "steam":
