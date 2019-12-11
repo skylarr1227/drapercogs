@@ -126,6 +126,7 @@ class CustomChannels(commands.Cog):
         roles_ids = [role.id for role in roles]
         await self.config.guild(ctx.guild).mute_roles.set(roles_ids)
 
+    @commands.Cog.listener()
     async def on_guild_channel_delete(
         self, channel: Union[discord.TextChannel, discord.VoiceChannel, discord.CategoryChannel]
     ):
@@ -141,6 +142,7 @@ class CustomChannels(commands.Cog):
                     logger.info(f"Custom Channel ({channel.id}) has been deleted from database")
                     del channel_data[f"{channel.id}"]
 
+    @commands.Cog.listener()
     async def on_guild_channel_create(
         self, channel: Union[discord.TextChannel, discord.VoiceChannel, discord.CategoryChannel]
     ):
@@ -153,6 +155,7 @@ class CustomChannels(commands.Cog):
                 data = {channel.id: channel.name}
                 channel_data.update(data)
 
+    @commands.Cog.listener()
     async def on_voice_state_update(
         self, member: discord.Member, before: discord.VoiceState, after: discord.VoiceState
     ):

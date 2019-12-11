@@ -120,6 +120,7 @@ class DynamicChannels(commands.Cog):
             else:
                 await ctx.send(f"Error: {category_id} is not a whitelisted category")
 
+    @commands.Cog.listener()
     async def on_guild_channel_delete(
         self, channel: Union[discord.TextChannel, discord.VoiceChannel, discord.CategoryChannel]
     ):
@@ -135,6 +136,7 @@ class DynamicChannels(commands.Cog):
                     logger.info(f"Dynamic Channel ({channel.id}) has been deleted from database")
                     del channel_data[f"{channel.id}"]
 
+    @commands.Cog.listener()
     async def on_guild_channel_create(
         self, channel: Union[discord.TextChannel, discord.VoiceChannel, discord.CategoryChannel]
     ):
@@ -146,6 +148,7 @@ class DynamicChannels(commands.Cog):
             async with channel_group.user_created_voice_channels() as channel_data:
                 channel_data.update({channel.id: channel.name})
 
+    @commands.Cog.listener()
     async def on_voice_state_update(
         self, member: discord.Member, before: discord.VoiceState, after: discord.VoiceState
     ):
