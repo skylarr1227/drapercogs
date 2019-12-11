@@ -33,16 +33,15 @@ class PCSpecs(commands.Cog):
         self.bot = bot
         self.config = ConfigHolder.PCSpecs
 
-    @commands.group(enabled=True, case_insensitive=True)
-    @commands.guild_only()
+    @commands.group()
     async def specs(self, ctx: commands.Context):
         """Rig management"""
 
-    @specs.group(name="show", enabled=True, invoke_without_command=True)
-    async def _specs_show(self, ctx, *, all: str = None):  # @ReservedAssignment
+    @specs.group(name="show", invoke_without_command=True)
+    async def _specs_show(self, ctx, *, show_all: str = None):  # @ReservedAssignment
         """Shows your info"""
         if ctx.invoked_subcommand is None:
-            if all and all == "all":
+            if show_all and show_all == "all":
                 data = await get_all_user_rigs(
                     ctx.guild, pm=False if not isinstance(ctx.channel, discord.DMChannel) else True
                 )
@@ -75,7 +74,7 @@ class PCSpecs(commands.Cog):
                     embed_list = []
                 else:
                     return await ctx.send("No one here has a rig profile with me")
-            elif not all:
+            elif not show_all:
                 embed = await self._get_member_rig(ctx, ctx.author)
                 if embed:
                     await ctx.send(embed=embed)
@@ -98,7 +97,7 @@ class PCSpecs(commands.Cog):
             if embed_list:
                 await menu(ctx, embed_list, DEFAULT_CONTROLS)
 
-    @specs.command(name="add", full_parent_name="rig", enabled=True)
+    @specs.command(name="add")
     async def _specs_add(self, ctx: commands.Context):
         """Add your rig specs to your profile"""
         try:
@@ -114,7 +113,7 @@ class PCSpecs(commands.Cog):
         except discord.Forbidden:
             return await ctx.send(f"I can't PM you, {ctx.author.mention}")
 
-    @specs.command(name="remove", full_parent_name="rig", enabled=True)
+    @specs.command(name="remove")
     async def _specs_remove(self, ctx: commands.Context, *, component: str):
         """Remove a component from your rig profile"""
         component_user = component

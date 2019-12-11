@@ -231,9 +231,7 @@ async def update_profile(bot, user_data: dict, author: discord.User):
 
     if not region:
         await author.send("Which zone are you from?")
-        embed = discord.Embed(
-            title="Pick a number that matches your zone"
-        )
+        embed = discord.Embed(title="Pick a number that matches your zone")
 
         for key, value in CONTINENT_DATA.items():
             embed.add_field(name=value.title(), value=key)
@@ -285,9 +283,7 @@ async def update_profile(bot, user_data: dict, author: discord.User):
         await author.send(
             "There are multiple timezone for your country, please pick the one that match yours?",
         )
-        embed = discord.Embed(
-            title="Pick a number that matches your timezone"
-        )
+        embed = discord.Embed(title="Pick a number that matches your timezone")
         for key, value in country_timezones_dict.items():
             embed.add_field(name=value.upper(), value=key)
         await author.send(embed=embed)
@@ -664,9 +660,7 @@ async def smart_prompt(bot, author: discord.User, prompt_data: dict, platforms: 
         if "finish" not in prompt_data.values() and "Finish" not in prompt_data.values():
             prompt_data.update({str(original_len): "finish"})
         prompt_data = remove_old(prompt_data, key)
-        embed = discord.Embed(
-            title="Pick a number that matches the service you want to add",
-        )
+        embed = discord.Embed(title="Pick a number that matches the service you want to add",)
 
         for key, value in prompt_data.items():
             embed.add_field(name=value.title(), value=key)

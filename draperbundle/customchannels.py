@@ -64,7 +64,7 @@ class CustomChannels(commands.Cog):
         if self.task:
             self.task.cancel()
 
-    @checks.is_admin_or_superior()
+    @checks.admin_or_permissions()
     @commands.guild_only()
     @commands.group(name="buttonset")
     async def _button(self, ctx: commands.Context):
