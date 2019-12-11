@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mar 26, 2019
 
-@author: Guy Reis
-"""
 import logging
 from copy import copy
 from operator import itemgetter
