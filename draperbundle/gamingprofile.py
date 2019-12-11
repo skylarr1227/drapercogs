@@ -407,7 +407,7 @@ class GamingProfile(commands.Cog):
             )
             return None
 
-    @_profile.group(name="profile", case_insensitive=True)
+    @_profile.group(name="services", case_insensitive=True)
     async def _profile_username(self, ctx: commands.Context):
         """Manage your service usernames"""
 

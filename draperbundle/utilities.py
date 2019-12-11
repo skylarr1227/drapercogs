@@ -662,7 +662,7 @@ async def smart_prompt(bot, author: discord.User, prompt_data: dict, platforms: 
     data = {}
     key = None
     original_len = len(prompt_data)
-
+    await author.send(f"Pick number {original_len} to finish this part.")
     while True:
         if "finish" not in prompt_data.values() and "Finish" not in prompt_data.values():
             prompt_data.update({str(original_len): "finish"})
