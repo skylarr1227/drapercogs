@@ -379,7 +379,9 @@ def add_username_hyperlink(platform, username, _id):
 
 
 def get_member_activity(member: discord.Member, database=False):
-    activities = member.activities
+    activities = getattr(member, "activities", None)
+    if not activities:
+        return None
     activities_type = [activity.type for activity in activities]
     if not activities_type:
         return None
