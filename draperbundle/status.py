@@ -54,8 +54,11 @@ class MemberStatus(commands.Cog):
                     key=key, value=len(value), status=_("playing")
                 )
                 content = ""
-                for mention, display_name, black_hole in sorted(value, key=itemgetter(2, 1)):
-                    content += f"{display_name}\n"
+                for mention, display_name, black_hole, account in sorted(value, key=itemgetter(2, 1)):
+                    content += f"{display_name}"
+                    if account:
+                        content += f" | {account}"
+                    content += "\n"
 
                 outputs = pagify(content, page_length=1000, priority=True)
                 for enum_count, field in enumerate(outputs, 1):
@@ -95,8 +98,11 @@ class MemberStatus(commands.Cog):
                     key=key, value=len(value), status=_("watching")
                 )
                 content = ""
-                for mention, display_name, black_hole in sorted(value, key=itemgetter(2, 1)):
-                    content += f"{display_name}\n"
+                for mention, display_name, black_hole, account in sorted(value, key=itemgetter(2, 1)):
+                    content += f"{display_name}"
+                    if account:
+                        content += f" | {account}"
+                    content += "\n"
 
                 outputs = pagify(content, page_length=1000, priority=True)
                 for enum_count, field in enumerate(outputs, 1):
@@ -136,8 +142,11 @@ class MemberStatus(commands.Cog):
                     key=key, value=len(value), status=_("listening")
                 )
                 content = ""
-                for mention, display_name, black_hole in sorted(value, key=itemgetter(2, 1)):
-                    content += f"{display_name}\n"
+                for mention, display_name, black_hole, account in sorted(value, key=itemgetter(2, 1)):
+                    content += f"{display_name}"
+                    if account:
+                        content += f" | {account}"
+                    content += "\n"
 
                 outputs = pagify(content, page_length=1000, priority=True)
                 for enum_count, field in enumerate(outputs, 1):
@@ -188,8 +197,12 @@ class MemberStatus(commands.Cog):
                     key=key, value=len(value), status=_("streaming")
                 )
                 content = ""
-                for mention, display_name, black_hole in sorted(value, key=itemgetter(2, 1)):
-                    content += f"{display_name}\n"
+                for mention, display_name, black_hole, account in sorted(value, key=itemgetter(2, 1)):
+                    content += f"{display_name}"
+                    if account:
+                        content += f" | {account}"
+                    content += "\n"
+
 
                 outputs = pagify(content, page_length=1000, priority=True)
                 for enum_count, field in enumerate(outputs, 1):
@@ -242,6 +255,20 @@ class MemberStatus(commands.Cog):
                             and not any(g.lower() in game.lower() for g in game_name)
                         ):
                             continue
+                        if not music and not movie:
+                            publisher = (
+                                await ConfigHolder.PublisherManager.publisher.get_raw()
+                            ).get(game)
+                        elif movie:
+                            publisher = "movie"
+                        else:
+                            publisher = "spotify"
+                        accounts = (await ConfigHolder.AccountManager.member(member).get_raw()).get(
+                            "account", {}
+                        )
+                        account = accounts.get(publisher)
+                        if not account:
+                            account = None
 
                         hoisted_roles = [r for r in member.roles if r and r.hoist]
                         top_role = max(
@@ -249,7 +276,7 @@ class MemberStatus(commands.Cog):
                         )
                         role_value = top_role.position * -1
                         if game in member_data_new:
-                            member_data_new[game].append((member.mention, str(member), role_value))
+                            member_data_new[game].append((member.mention, str(member), role_value, account))
                         else:
-                            member_data_new[game] = [(member.mention, str(member), role_value)]
+                            member_data_new[game] = [(member.mention, str(member), role_value, account)]
         return member_data_new
