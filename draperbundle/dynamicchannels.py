@@ -205,8 +205,9 @@ class DynamicChannels(commands.Cog):
                             user_voice.update({created_channel.id: created_channel.id})
 
                     elif len(type_room) > 1:
-                        for _, position, channel in type_room:
-                            delete.update({channel.id: (channel, position)})
+                        for channel_name, position, channel in type_room:
+                            if channel_name != room_name.format(number=1):
+                                delete.update({channel.id: (channel, position)})
             elif (
                 before
                 and before.channel
@@ -252,8 +253,9 @@ class DynamicChannels(commands.Cog):
                             user_voice.update({created_channel.id: created_channel.id})
 
                     elif len(type_room) > 1:
-                        for _, position, channel in type_room:
-                            delete.update({channel.id: (channel, position)})
+                        for channel_name, position, channel in type_room:
+                            if channel_name != room_name.format(number=1):
+                                delete.update({channel.id: (channel, position)})
 
         if delete and len(delete) > 1:
             logger.info(f"Some dynamic channels need to be deleted")
@@ -289,6 +291,8 @@ class DynamicChannels(commands.Cog):
                         if channel:
                             logger.info(f"Checking if {channel.name} is empty")
                             if sum(1 for _ in channel.members) < 1:
+                                if channel.name.endswith(" - 1"):
+                                    continue
                                 logger.info(f"{channel.name} is empty queueing it for deletion")
                                 await asyncio.sleep(5)
                                 await channel.delete(

@@ -168,9 +168,7 @@ def eval_(node):
 
 
 async def get_supported_platforms(lists: bool = True, supported: bool = False):
-    platforms = (await ConfigHolder.PublisherManager.get_raw()).get(
-        "services", {}
-    )
+    platforms = (await ConfigHolder.PublisherManager.get_raw()).get("services", {})
     if supported:
         return [(value.get("command")) for _, value in platforms.items()]
     if lists:
@@ -731,9 +729,9 @@ async def get_players_per_activity(
                     ):
                         continue
                     if not music:
-                        publisher = (
-                            await ConfigHolder.PublisherManager.publisher.get_raw()
-                        ).get(game)
+                        publisher = (await ConfigHolder.PublisherManager.publisher.get_raw()).get(
+                            game
+                        )
                     else:
                         publisher = "spotify"
                     accounts = (await ConfigHolder.AccountManager.member(member).get_raw()).get(

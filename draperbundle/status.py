@@ -54,7 +54,9 @@ class MemberStatus(commands.Cog):
                     key=key, value=len(value), status=_("playing")
                 )
                 content = ""
-                for mention, display_name, black_hole, account in sorted(value, key=itemgetter(2, 1)):
+                for mention, display_name, black_hole, account in sorted(
+                    value, key=itemgetter(2, 1)
+                ):
                     content += f"{display_name}"
                     if account:
                         content += f" | {account}"
@@ -98,7 +100,9 @@ class MemberStatus(commands.Cog):
                     key=key, value=len(value), status=_("watching")
                 )
                 content = ""
-                for mention, display_name, black_hole, account in sorted(value, key=itemgetter(2, 1)):
+                for mention, display_name, black_hole, account in sorted(
+                    value, key=itemgetter(2, 1)
+                ):
                     content += f"{display_name}"
                     if account:
                         content += f" | {account}"
@@ -142,7 +146,9 @@ class MemberStatus(commands.Cog):
                     key=key, value=len(value), status=_("listening")
                 )
                 content = ""
-                for mention, display_name, black_hole, account in sorted(value, key=itemgetter(2, 1)):
+                for mention, display_name, black_hole, account in sorted(
+                    value, key=itemgetter(2, 1)
+                ):
                     content += f"{display_name}"
                     if account:
                         content += f" | {account}"
@@ -197,12 +203,13 @@ class MemberStatus(commands.Cog):
                     key=key, value=len(value), status=_("streaming")
                 )
                 content = ""
-                for mention, display_name, black_hole, account in sorted(value, key=itemgetter(2, 1)):
+                for mention, display_name, black_hole, account in sorted(
+                    value, key=itemgetter(2, 1)
+                ):
                     content += f"{display_name}"
                     if account:
                         content += f" | {account}"
                     content += "\n"
-
 
                 outputs = pagify(content, page_length=1000, priority=True)
                 for enum_count, field in enumerate(outputs, 1):
@@ -263,9 +270,9 @@ class MemberStatus(commands.Cog):
                             publisher = "movie"
                         else:
                             publisher = "spotify"
-                        accounts = (await ConfigHolder.AccountManager.member(member).get_raw()).get(
-                            "account", {}
-                        )
+                        accounts = (
+                            await ConfigHolder.AccountManager.member(member).get_raw()
+                        ).get("account", {})
                         account = accounts.get(publisher)
                         if not account:
                             account = None
@@ -276,7 +283,11 @@ class MemberStatus(commands.Cog):
                         )
                         role_value = top_role.position * -1
                         if game in member_data_new:
-                            member_data_new[game].append((member.mention, str(member), role_value, account))
+                            member_data_new[game].append(
+                                (member.mention, str(member), role_value, account)
+                            )
                         else:
-                            member_data_new[game] = [(member.mention, str(member), role_value, account)]
+                            member_data_new[game] = [
+                                (member.mention, str(member), role_value, account)
+                            ]
         return member_data_new

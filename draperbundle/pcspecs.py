@@ -282,7 +282,10 @@ class PCSpecs(commands.Cog):
         gaming_cog = ctx.bot.get_cog("GamingProfile")
         discord_user_name = member.display_name
         description = ""
-        last_seen = gaming_cog._cache.get(member.id) or await ConfigHolder.GamingProfile.user(member).seen()
+        last_seen = (
+            gaming_cog._cache.get(member.id)
+            or await ConfigHolder.GamingProfile.user(member).seen()
+        )
 
         if last_seen:
             last_seen_datetime = get_date_time(last_seen)

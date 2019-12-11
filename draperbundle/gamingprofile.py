@@ -339,7 +339,9 @@ class GamingProfile(commands.Cog):
         last_seen = None
         if data.get("discord_user_id"):
             if member:
-                last_seen = self._cache.get(member.id) or await self.profileConfig.user(member).seen()
+                last_seen = (
+                    self._cache.get(member.id) or await self.profileConfig.user(member).seen()
+                )
 
             if last_seen:
                 last_seen_datetime = get_date_time(last_seen)
