@@ -769,18 +769,6 @@ def get_member_named(guild, name):
     return discord.utils.find(pred, members)
 
 
-def get_role_named(guild, name):
-    roles = guild.roles
-
-    def pred(c):
-        try:
-            return str(c.name).lower().strip() == name.lower().strip()
-        except Exception as e:
-            logger.error(f"Error when trying to find role: {name}: E: {e}")
-            return False
-
-    return discord.utils.find(pred, roles)
-
 
 async def get_all_by_platform(platform: str, guild: discord.Guild, pm: bool = False):
     platform = platform.lower().strip()

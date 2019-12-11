@@ -113,8 +113,8 @@ class GamingProfile(commands.Cog):
                         account = {platform: username}
                         services.update(account)
             if getattr(author, "guild"):
-                doesnt_have_profile_role = await get_role_named(ctx.guild, "No Profile")
-                has_profile_role = await get_role_named(ctx.guild, "Has Profile")
+                doesnt_have_profile_role = get_role_named(ctx.guild, "No Profile")
+                has_profile_role = get_role_named(ctx.guild, "Has Profile")
                 continent_role = user_data.get("zone")
                 role_names = [role.name for role in author.roles]
                 if has_profile_role:

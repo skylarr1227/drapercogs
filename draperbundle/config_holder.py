@@ -251,7 +251,7 @@ ConfigHolder.AccountManager.register_user(**default_member_AccountManager)
 ConfigHolder.GamingProfile.register_user(**default_member_GamingProfile)
 ConfigHolder.GamingProfile.register_guild(**default_guild_GamingProfile)
 ConfigHolder.PCSpecs.register_user(**default_member_PCSpecs)
-ConfigHolder.PublisherManager.init_custom("SERVICES", 3)
+ConfigHolder.PublisherManager.init_custom("SERVICES", 2)
 
 ConfigHolder.PublisherManager.register_custom("SERVICES", **default_custom_PublisherManager)
 ConfigHolder.PlayerStatus.register_guild(**default_guild_StatusManager)
