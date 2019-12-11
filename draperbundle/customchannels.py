@@ -231,7 +231,10 @@ class CustomChannels(commands.Cog):
             delete_id = {}
             data = await self.config.guild(guild).user_created_voice_channels()
 
-            for channel_id_str, channel_id in data.items():
+            for index, (channel_id_str, channel_id) in enumerate(data.items(), 1):
+                if index % 5 == 0:
+                    await asyncio.sleep(5)
+
                 channel = guild.get_channel(channel_id)
                 if channel and sum(1 for _ in channel.members) < 1:
                     logger.info(f"{channel.name} is empty trying to delete it")
