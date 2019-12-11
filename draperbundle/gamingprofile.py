@@ -222,7 +222,7 @@ class GamingProfile(commands.Cog):
             return await ctx.send_help()
         guild = ctx.guild
         is_dm = not guild
-        logo = (await ConfigHolder.LogoData.custom("LOGOS").get_raw()).get(platform)
+        logo = (await ConfigHolder.LogoData.get_raw()).get(platform)
 
         if platform:
             data = await get_all_by_platform(platform=platform, guild=guild, pm=is_dm)

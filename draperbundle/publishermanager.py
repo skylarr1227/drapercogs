@@ -44,7 +44,7 @@ class PublisherManager(commands.Cog):
         new_service = dict(name=name, command=command, identifier=identifier)
         new_service = {new_service["identifier"]: new_service}
 
-        service_group = self.config.custom("SERVICES")
+        service_group = self.config
         async with service_group.services() as services:
             services.update(new_service)
         await ctx.tick()
@@ -53,7 +53,7 @@ class PublisherManager(commands.Cog):
     @checks.admin_or_permissions()
     async def service_remove(self, ctx: commands.Context, *, message: str):  # @UnusedVariable
         """Remove a service from the list of supported services"""
-        service_group = self.config.custom("SERVICES")
+        service_group = self.config
         async with service_group.services() as services:
             services.pop(message)
         await ctx.tick()
@@ -73,7 +73,7 @@ class PublisherManager(commands.Cog):
     async def service_playing(self, ctx):
         """Shows how many games needs to be parsed"""
         await self.update_game_database(manual=True)
-        config_data = await self.config.custom("SERVICES").publisher.get_raw()
+        config_data = await self.config.publisher.get_raw()
         existing_data = [key for key, value in config_data.items() if value is None]
         await ctx.send(f"{len(existing_data)} games need to be parsed")
         json_data = json.dumps(config_data, indent=2)
@@ -102,7 +102,7 @@ class PublisherManager(commands.Cog):
         elif checker == "false":
             checker = False
 
-        config_data = await self.config.custom("SERVICES").publisher()
+        config_data = await self.config.publisher()
         if checker == "all":
             existing_data = [
                 key for key, value in config_data.items() if value not in [None, True, False]
@@ -116,14 +116,14 @@ class PublisherManager(commands.Cog):
         """Parses a specific game"""
         checker = game.lower()
 
-        config_data = await self.config.custom("SERVICES").publisher()
+        config_data = await self.config.publisher()
         existing_data = [key for key, _ in config_data.items() if checker in key.lower()]
         await self.parse_playing(ctx, existing_data)
 
     @_parse.command(name="incomplete")
     async def incomplete_parse_game(self, ctx):
         """Parses games that haven't been parsed"""
-        config_data = await self.config.custom("SERVICES").publisher()
+        config_data = await self.config.publisher()
         existing_data = [key for key, value in config_data.items() if value is None]
         await self.parse_playing(ctx, existing_data)
 
@@ -173,7 +173,7 @@ class PublisherManager(commands.Cog):
             return await smart_prompt(platform_prompt, platforms)
 
         if existing_data:
-            service_group = self.config.custom("SERVICES")
+            service_group = self.config
             async with service_group.publisher() as publisher_data:
                 for game in existing_data:
                     await asyncio.sleep(0)
@@ -193,7 +193,7 @@ class PublisherManager(commands.Cog):
                 guilds = self.bot.guilds
                 for guild in guilds:
                     members = guild.members
-                    config_data = await self.config.custom("SERVICES").publisher.get_raw()
+                    config_data = await self.config.publisher.get_raw()
                     new_data = []
                     for member in members:
                         await asyncio.sleep(0.2)
@@ -206,7 +206,7 @@ class PublisherManager(commands.Cog):
                         ):
                             new_data.append(activity)
                     if new_data:
-                        service_group = self.config.custom("SERVICES")
+                        service_group = self.config
                         async with service_group.publisher() as publisher:
                             for game in new_data:
                                 publisher.update({game: None})
