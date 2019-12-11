@@ -826,7 +826,7 @@ async def update_member_atomically(
     wrapping
     """
     me = member.guild.me
-    has_perm = me.permission_in(me.guild.text_channels[0]).manage_roles
+    has_perm = member.guild.permission_in(member.guild.text_channels[0]).manage_roles
     if not has_perm or member == me:
         return
     give = give or []
