@@ -50,12 +50,6 @@ class DynamicChannels(commands.Cog):
             await ctx.send(f"ERROR: No valid categories in {ctx.guild.name}")
             return
 
-        guild_data = ConfigHolder.DynamicChannels.guild(ctx.guild)
-        async with guild_data.dynamic_channels() as whitelist:
-            whitelist.update({category_id: [(room_name, size)]})
-            await ctx.send(
-                f"Added {category_id} to the whitelist\nRooms will be called {room_name} and have a size of {size}",
-            )
         category = next((c for c in ctx.guild.categories if c.id == int(category_id)), None)
         await ctx.guild.create_voice_channel(
             user_limit=size,
@@ -64,6 +58,12 @@ class DynamicChannels(commands.Cog):
             category=category,
             bitrate=ctx.guild.bitrate_limit,
         )
+        guild_data = ConfigHolder.DynamicChannels.guild(ctx.guild)
+        async with guild_data.dynamic_channels() as whitelist:
+            whitelist.update({category_id: [(room_name, size)]})
+            await ctx.send(
+                f"Added {category_id} to the whitelist\nRooms will be called {room_name} and have a size of {size}",
+            )
 
     @_button.command(name="append")
     async def multiple_dynamic_channel_whistelist_append(
@@ -93,13 +93,6 @@ class DynamicChannels(commands.Cog):
             )
             return
 
-        guild_data = ConfigHolder.DynamicChannels.guild(ctx.guild)
-        async with guild_data.dynamic_channels() as whitelist:
-            whitelist[category_id].append((room_name, size))
-            await ctx.send(
-                f"Added {category_id} to the whitelist\nRooms will be called "
-                f"{room_name} and have a size of {size}",
-            )
         category = next((c for c in ctx.guild.categories if c.id == int(category_id)), None)
         await ctx.guild.create_voice_channel(
             user_limit=size,
@@ -108,6 +101,14 @@ class DynamicChannels(commands.Cog):
             category=category,
             bitrate=ctx.guild.bitrate_limit,
         )
+
+        guild_data = ConfigHolder.DynamicChannels.guild(ctx.guild)
+        async with guild_data.dynamic_channels() as whitelist:
+            whitelist[category_id].append((room_name, size))
+            await ctx.send(
+                f"Added {category_id} to the whitelist\nRooms will be called "
+                f"{room_name} and have a size of {size}",
+            )
 
     @_button.command(name="remove")
     async def multiple_dynamic_channel_whistelist_delete(self, ctx, category_id: str):
