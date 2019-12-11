@@ -295,10 +295,7 @@ class GamingProfile(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_without_command(self, message):
-        if message.guild:
-            if message.guild.id not in self._cache:
-                self._cache[message.guild.id] = {}
-            self._cache[message.guild.id][message.author.id] = int(time.time())
+        self._cache[message.guild.id][message.author.id] = int(time.time())
 
     @commands.Cog.listener()
     async def on_typing(
@@ -307,35 +304,23 @@ class GamingProfile(commands.Cog):
         user: Union[discord.User, discord.Member],
         when: datetime,
     ):
-        if user.guild:
-            if user.guild.id not in self._cache:
-                self._cache = {}
-            self._cache[user.id] = int(time.time())
+        self._cache[user.id] = int(time.time())
 
     @commands.Cog.listener()
     async def on_message_edit(self, before: discord.Message, after: discord.Message):
-        if after.guild:
-            if after.guild.id not in self._cache:
-                self._cache = {}
-            self._cache[after.author.id] = int(time.time())
+        self._cache[after.author.id] = int(time.time())
 
     @commands.Cog.listener()
     async def on_reaction_remove(
         self, reaction: discord.Reaction, user: Union[discord.Member, discord.User]
     ):
-        if user.guild:
-            if user.guild.id not in self._cache:
-                self._cache = {}
-            self._cache[user.id] = int(time.time())
+        self._cache[user.id] = int(time.time())
 
     @commands.Cog.listener()
     async def on_reaction_add(
         self, reaction: discord.Reaction, user: Union[discord.Member, discord.User]
     ):
-        if user.guild:
-            if user.guild.id not in self._cache:
-                self._cache = {}
-            self._cache[user.id] = int(time.time())
+        self._cache[user.id] = int(time.time())
 
     async def get_member_profile(self, ctx: commands.Context, member: discord.Member):
         entries_to_remove = (
@@ -354,7 +339,8 @@ class GamingProfile(commands.Cog):
         last_seen = None
         if data.get("discord_user_id"):
             if member:
-                last_seen = await self.profileConfig.user(member).seen()
+                last_seen = self._cache.get(member.id) or await self.profileConfig.user(member).seen()
+
             if last_seen:
                 last_seen_datetime = get_date_time(last_seen)
                 last_seen_text = get_date_string(last_seen_datetime)
@@ -502,6 +488,8 @@ class GamingProfile(commands.Cog):
             group = self.profileConfig._get_base_group(self.config.USER)  # Bulk update to config
             async with group.all() as new_data:
                 for member_id, seen in self._cache.items():
+                    if str(member_id) not in new_data:
+                        new_data[str(member_id)] = {"seen": 0}
                     new_data[str(member_id)]["seen"] = seen
 
     async def _save_to_config(self):
@@ -515,5 +503,7 @@ class GamingProfile(commands.Cog):
                 )  # Bulk update to config
                 async with group.all() as new_data:
                     for member_id, seen in users_data.items():
+                        if str(member_id) not in new_data:
+                            new_data[str(member_id)] = {"seen": 0}
                         new_data[str(member_id)]["seen"] = seen
                 await asyncio.sleep(60)
