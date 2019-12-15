@@ -12,12 +12,7 @@ from redbot.core.utils.menus import DEFAULT_CONTROLS, menu
 
 from .config_holder import ConfigHolder
 from .constants import REPLACE_BRACKER
-from .utilities import (
-    get_all_user_rigs,
-    get_date_time,
-    get_date_string,
-    get_member_activity,
-)
+from .utilities import get_all_user_rigs, get_date_time, get_date_string, get_member_activity
 
 __updated__ = "27-04-2019"
 
@@ -47,7 +42,7 @@ class PCSpecs(commands.Cog):
                     for rig_data, _, mention, _ in sorted(data, key=itemgetter(3, 1)):
                         if rig_data and mention:
                             if len(discord_names + f"{mention}\n") > 1000:
-                                embed = discord.Embed(title=f"Users with a rig profile",)
+                                embed = discord.Embed(title=f"Users with a rig profile")
                                 embed.add_field(
                                     name=f"Discord ID", value=discord_names, inline=True
                                 )
@@ -137,7 +132,7 @@ class PCSpecs(commands.Cog):
         await author.send(
             'Each question you can enter "Cancel" or "Skip"'
             "\nCancel will stop all the question up to the point you gotten to"
-            "\nSkip will skip that question and take you to the next question",
+            "\nSkip will skip that question and take you to the next question"
         )
 
         await author.send("What CPU do you have (Cancel|Skip)?")
@@ -296,7 +291,7 @@ class PCSpecs(commands.Cog):
             header += f"{activity}\n"
         description += header
 
-        embed = discord.Embed(title=f"{discord_user_name}' rig", description=description,)
+        embed = discord.Embed(title=f"{discord_user_name}' rig", description=description)
         footer = ""
         if last_seen_datetime:
             if last_seen_text == "Now":

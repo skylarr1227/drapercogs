@@ -81,6 +81,7 @@ class Reporter(commands.Cog):
                     else "Red Core"
                 )
             )
+        discord.Embed.set_field_at
         global_config = await config.all_guilds()
         temp = deepcopy(global_config)
         for k, v in temp.items():

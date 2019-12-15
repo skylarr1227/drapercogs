@@ -146,7 +146,7 @@ class GamingProfile(commands.Cog):
         user = {"country": None, "timezone": None, "language": None, "zone": None}
         try:
             await ctx.author.send(
-                "Updating your profile\nLet's continue here(We don't want to spam the other chat!)",
+                "Updating your profile\nLet's continue here(We don't want to spam the other chat!)"
             )
         except discord.Forbidden:
             return await ctx.author.send("I can't PM you", send_first=f"{ctx.author.mention}")
@@ -237,7 +237,7 @@ class GamingProfile(commands.Cog):
                             len(usernames + f"{username}\n") > 1000
                             or len(discord_names + f"{mention}\n") > 1000
                         ):
-                            embed = discord.Embed(title=f"{platform.title()} usernames",)
+                            embed = discord.Embed(title=f"{platform.title()} usernames")
                             embed.add_field(name=f"Discord ID", value=discord_names, inline=True)
                             embed.add_field(name=f"Usernames", value=usernames, inline=True)
                             if logo:
@@ -272,7 +272,7 @@ class GamingProfile(commands.Cog):
         try:
             await ctx.author.send(
                 "This cannot be undone and you will have to create a new profile, "
-                "do you want to continue? (y/n)",
+                "do you want to continue? (y/n)"
             )
         except discord.Forbidden:
             return await ctx.send(f"I can't PM you, {ctx.author.mention}")
@@ -289,7 +289,7 @@ class GamingProfile(commands.Cog):
             async with account_group() as account_data:
                 account_data.clear()
 
-            await ctx.author.send(f"To created a new one please run `{ctx.prefix}profile create`",)
+            await ctx.author.send(f"To created a new one please run `{ctx.prefix}profile create`")
         else:
             await ctx.author.send("Your profile hasn't been touched")
 
@@ -369,7 +369,7 @@ class GamingProfile(commands.Cog):
             description = description.strip()
             if description:
                 description += "\n\n"
-            embed = discord.Embed(title=f"Your Gaming Profile", description=description,)
+            embed = discord.Embed(title=f"Your Gaming Profile", description=description)
             if accounts:
                 platforms = await get_supported_platforms(lists=False)
                 services = ""
@@ -405,7 +405,7 @@ class GamingProfile(commands.Cog):
         else:
             mention = "You don't" if ctx.author == member else f"{member.mention} doesn't"
             await ctx.send(
-                f"{mention} have a profile with me\nTo create one say `{ctx.prefix}profile create`",
+                f"{mention} have a profile with me\nTo create one say `{ctx.prefix}profile create`"
             )
             return None
 
@@ -447,7 +447,7 @@ class GamingProfile(commands.Cog):
                     deleted_data = services.pop(platform)
                 if deleted_data:
                     await ctx.send(
-                        f"I've deleted your {platform.title()} username: {deleted_data}",
+                        f"I've deleted your {platform.title()} username: {deleted_data}"
                     )
                 else:
                     await ctx.send(f"You don't have a {platform.title()} username with me")

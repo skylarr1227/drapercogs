@@ -131,7 +131,7 @@ class PublisherManager(commands.Cog):
             async def smart_prompt(prompt_data: dict, platforms: dict):
                 while True:
                     embed = discord.Embed(
-                        title=f"Pick a number that matches the service you want to add to {game}",
+                        title=f"Pick a number that matches the service you want to add to {game}"
                     )
                     for key, value in prompt_data.items():
                         embed.add_field(name=value.title(), value=key)

@@ -251,7 +251,7 @@ async def update_profile(bot, user_data: dict, author: discord.User):
     if not country_timezones:
         await author.send(
             "What your timezone?(say 'n' to leave it empty) (Use UTC Format <UTC+0> - "
-            "Use https://www.vercalendario.info/en/what/utc-offset-by-country.html for help)",
+            "Use https://www.vercalendario.info/en/what/utc-offset-by-country.html for help)"
         )
         msg = await bot.wait_for("message", check=check)
         if msg and msg.content.lower() != "n":
@@ -262,7 +262,7 @@ async def update_profile(bot, user_data: dict, author: discord.User):
                 await author.send(
                     "Invalid timezone Use UTC Format <UTC+00:00> - You can check it at"
                     " https://www.vercalendario.info/en/what/utc-offset-by-country.html "
-                    "(say 'n' to leave it empty)",
+                    "(say 'n' to leave it empty)"
                 )
                 while not match:
                     msg = await bot.wait_for("message", check=check)
@@ -276,7 +276,7 @@ async def update_profile(bot, user_data: dict, author: discord.User):
     elif len(country_timezones) > 1:
         country_timezones_dict = {str(i): key for i, key in enumerate(country_timezones)}
         await author.send(
-            "There are multiple timezone for your country, please pick the one that match yours?",
+            "There are multiple timezone for your country, please pick the one that match yours?"
         )
         embed = discord.Embed(title="Pick a number that matches your timezone")
         for key, value in country_timezones_dict.items():
@@ -660,7 +660,7 @@ async def smart_prompt(bot, author: discord.User, prompt_data: dict, platforms: 
         if "finish" not in prompt_data.values() and "Finish" not in prompt_data.values():
             prompt_data.update({str(original_len): "finish"})
         prompt_data = remove_old(prompt_data, key)
-        embed = discord.Embed(title="Pick a number that matches the service you want to add",)
+        embed = discord.Embed(title="Pick a number that matches the service you want to add")
 
         for key, value in prompt_data.items():
             embed.add_field(name=value.title(), value=key)

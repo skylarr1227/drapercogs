@@ -42,7 +42,7 @@ class DynamicChannels(commands.Cog):
 
         if valid_categories and category_id not in valid_categories:
             await ctx.send(
-                f"ERROR: {category_id} is not a valid category ID for {ctx.guild.name}, these are the valid ones: ",
+                f"ERROR: {category_id} is not a valid category ID for {ctx.guild.name}, these are the valid ones: "
             )
             await ctx.send(box(json.dumps(valid_categories, indent=2), lang="json"))
             return
@@ -62,7 +62,7 @@ class DynamicChannels(commands.Cog):
         async with guild_data.dynamic_channels() as whitelist:
             whitelist.update({category_id: [(room_name, size)]})
             await ctx.send(
-                f"Added {category_id} to the whitelist\nRooms will be called {room_name} and have a size of {size}",
+                f"Added {category_id} to the whitelist\nRooms will be called {room_name} and have a size of {size}"
             )
 
     @_button.command(name="append")
@@ -77,7 +77,7 @@ class DynamicChannels(commands.Cog):
         if valid_categories and category_id not in valid_categories:
             await ctx.send(
                 f"ERROR: {category_id} is not a valid category ID for "
-                f"{ctx.guild.name}, these are the valid ones: ",
+                f"{ctx.guild.name}, these are the valid ones: "
             )
             await ctx.send(box(json.dumps(valid_categories, indent=2), lang="json"))
             return
@@ -89,7 +89,7 @@ class DynamicChannels(commands.Cog):
         ):
             await ctx.send(
                 f"ERROR: Category {category_id} is not been whitelisted as a "
-                f"special category {ctx.guild.name}, use `{ctx.prefix}dynamicset add`",
+                f"special category {ctx.guild.name}, use `{ctx.prefix}dynamicset add`"
             )
             return
 
@@ -107,7 +107,7 @@ class DynamicChannels(commands.Cog):
             whitelist[category_id].append((room_name, size))
             await ctx.send(
                 f"Added {category_id} to the whitelist\nRooms will be called "
-                f"{room_name} and have a size of {size}",
+                f"{room_name} and have a size of {size}"
             )
 
     @_button.command(name="remove")

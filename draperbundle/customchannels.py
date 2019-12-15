@@ -85,7 +85,7 @@ class CustomChannels(commands.Cog):
         if valid_categories and category_id not in valid_categories:
             await ctx.send(
                 f"ERROR: {category_id} is not a valid category ID for {ctx.guild.name},"
-                "these are the valid ones: ",
+                "these are the valid ones: "
             )
             await ctx.send(box(json.dumps(valid_categories, indent=2), lang="json"))
         elif not valid_categories:
