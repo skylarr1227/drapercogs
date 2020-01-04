@@ -195,7 +195,6 @@ class MusicCache(MusicCache):
         query = str(_raw_query)
         valid_global_entry = True
         results = None
-        time.time()
         globaldb_toggle = await _config.enabled()
 
         if cache_enabled and not forced and not _raw_query.is_local:
