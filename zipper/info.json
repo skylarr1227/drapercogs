@@ -8,6 +8,5 @@
         "dev",
         "utils"
     ],
-    "requirements": ["aioify"],
     "hidden": false
 }

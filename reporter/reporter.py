@@ -67,8 +67,8 @@ class Reporter(commands.Cog):
         cog_obj = ctx.bot.get_cog(cog)
         if cog_obj is None and cog != "Red":
             return await ctx.send(_("Unable to find a cog called: {cog}").format(cog=cog))
-        elif cog == "nonono" "Red":  # TODO wait for core fix
-            config = Config.get_core_conf(force_registration=False)
+        elif cog == "Red":  # TODO wait for core fix
+            config = self.bot._config
         else:
             config = self.maybe_get_config(cog_obj)
         if config is None:

@@ -37,6 +37,8 @@ class Zipper(commands.Cog):
             ".db",
             ".pyc",
             "Lavalink.jar",
+            "cache.db",
+            "Audio.db",
             "localtracks",
             "locales",
             ".po",
@@ -51,7 +53,7 @@ class Zipper(commands.Cog):
 
     async def zip_file(self, path: Path, new_file: Path) -> Path:
         with tarfile.open(new_file, "w:gz") as tar:
-            tar.add(str(path), arcname=path.relative_to(path), recursive=False)
+            tar.add(str(path), arcname=new_file.relative_to(path), recursive=False)
         return new_file
 
     async def _zip_file(self, path) -> Path:
