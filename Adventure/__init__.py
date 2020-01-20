@@ -1,4 +1,4 @@
-from .adventure import Adventure
+from .Adventure import Adventure
 
 
 async def setup(bot):
